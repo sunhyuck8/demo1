@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout (title, content)">
+
+    <!--
+        title 제목과 section콘텐츠를 넣어서 화면을 구성해주는 레이아웃
+    -->
+
+      <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title th:replace="${title}"></title>
+
+          <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+          <link rel="stylesheet" th:href="@{http://localhost:8080/temp/css/bootstrap.min.css}">
+          <link rel="stylesheet" th:href="@{http://localhost:8080/temp/css/custom.css}">
+          <link rel="stylesheet" th:href="@{http://localhost:8080/temp/css/responsive-style.css}">
+          <link rel="stylesheet" th:href="@{http://localhost:8080/temp/css/font-awesome.min.css}">
+          <link rel="stylesheet" th:href="@{http://localhost:8080/temp/css/lightbox.min.css}">
+          <link rel="stylesheet" th:href="@{http://localhost:8080/temp/css/loaders.css}">
+      </head>
+
+        <style>
+            #testbox{
+                width: 100%;
+                height: 100%;
+                /*background-color: whitesmoke;*/
+            }
+            #btn_login{
+                padding: 3px;
+            }
+
+            /*index_community*/
+            .nav_small_community{
+                color: #adadad;
+                font-size: 13px;
+                margin: 0px 4px 4px 5px;
+                padding: 2px 13px 3px;
+            }
+            /*index_community END*/
+            /*index_cs*/
+            table {
+                border-collapse: collapse;
+                border-spacing: 0;
+                width: 100%;
+                border: 1px solid #ddd;
+            }
+            th, td {
+                text-align: left;
+                padding: 16px;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+            /*index_cs END*/
+
+            /*myinfo*/
+            #my-Info-img{
+                width: 200px;
+                height : 200px;
+                border-radius: 70%;
+            }
+            .wrapper_myInfo_left{
+                width: 40%;
+                height: 700px;
+                float: left;
+                background: #d0d5d8;
+            }
+            .wrapper_myInfo_right{
+                width: 60%;
+                height: 700px;
+                float: right;
+                background: #ebebeb;
+            }
+            .myinfo_sec{
+                background: #adadad;
+
+            }
+            .wrapper_myInfo_right li{
+                list-style-type: none;
+            }
+            .myInfo_right_top{
+                margin: 10px;
+            }
+            .myInfo_right_top_left{
+                width: 40%;
+                float: left;
+            }
+            .myInfo_right_top_right{
+                width: 60%;
+                float: left;
+
+            }
+            .myInfo_right_top_right li{
+                margin: 10px;
+                padding: 10px;
+                border-bottom: 1px solid #d0d5d8;
+            }
+            .myInfo_right_top_sec{
+                border-bottom: 2px solid #d0d5d8;
+            }
+
+            /*myinfo END*/
+
+
+            /*board registForm*/
+
+            .formContainer input[type=text], select, textarea {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-top: 6px;
+                margin-bottom: 16px;
+                resize: vertical;
+            }
+
+            input[type=button] {
+                background-color: #04AA6D;
+                color: white;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            input[type=button]:hover {
+                background-color: #45a049;
+            }
+
+            .formContainer {
+                border-radius: 5px;
+                background-color: #f2f2f2;
+                padding: 20px;
+            }
+            .content-area{
+                height: 600px;
+                border: 1px solid black;
+                text-decoration: none;
+                text-align: center;
+                overflow: scroll;
+                margin-top: 0;
+            }
+            .inputFile{
+                width: 450px;
+                height: 450px;
+            }
+
+            .myinfo_font_ele{
+                display: flex;
+                list-style-type: none;
+                padding: 0;
+                margin-bottom: 0;
+            }
+            .myinfo_font_ele li{
+                margin-right: 10px;
+            }
+
+            /*board registForm END*/
+        </style>
+
+    <!--===================================================================================================-->
+    <!--===================================================================================================-->
+    <body>
+        <!--loading, Header, top navi 시작-->
+        <div th:insert="~{/inc/loding :: loading}"></div>
+        <header th:if="${#session.getAttribute('loginFlag')}==true" th:insert="~{/inc/header :: header_pre}"></header>  <!--세션에 정보가 있을경우-->
+        <header th:if="${#session.getAttribute('loginFlag')}==false" th:insert="~{/inc/header :: header_aft}"></header> <!--세션에 정보가 없을경우-->
+        <nav th:insert="~{/inc/top_navi :: navi_top}"></nav>
+
+
+
+
+
+
+
+        <!-------------------*** content ***------------------------------------------->
+        <section th:replace="${content}">
+
+        </section>
+        <!-------------------*** content ***End---------------------------------------->
+
+
+
+
+
+
+
+
+
+        <!-- footer  시작-->
+        <footer th:insert="~{/inc/footer :: footer_top}">푸터입니당</footer>   <!-- 이것 저것 푸터-->
+        <div th:insert="~{/inc/footer :: footer_bottom}">푸터입니당</div>  <!--맨 밑 한줄 -->
+        <!-- footer  끝-->
+
+
+
+
+
+
+
+        <!--=================== script ============================-->
+          <script th:src="@{http://localhost:8080/temp/js/jquery.min.js}"></script><!--부트 스트랩 및 jquery가 동작하는 기능들이 많음 -->
+          <script th:src="@{http://localhost:8080/temp/js/bootstrap.min.js}"></script><!--하단 쪽에 클릭시 화면이동하는 기능 -->
+          <script th:src="@{http://localhost:8080/temp/js/core.js}"></script> <!--사이트오픈시 보여주는 역할-->
+
+        <script>
+            /* 페이지 navi 눌렀을 시 누른 페이지 하이라이트 주는 스크립트 */
+            //top_navi
+            window.onload = function (){
+                var list = document.getElementsByClassName('nav-item');
+                var activePage = localStorage.getItem('currentPageIndex')*1;   // 2. 하이라이트 줄 index를 구함 *1을 한 이유는 Storage는 String만 전달이 가능하기 때문에 number화를 시켜주기위함
+
+                    for (var i = 0; i < list.length; i++) {
+                        list[i].classList.remove('active');  //하이라이트 부분을 모두 지워주고
+
+                        (function(index) {  //함수 표현식(IIFE)를 사용 이유  :  javascript 클로저가 for문과 같이 작동하기 때문
+                            list[index].addEventListener('click', function() {  //1 . 클릭시 localStorage에 index값을 넘겨줌
+                                localStorage.setItem('currentPageIndex', index+"");
+                            });
+                        })(i);
+                    }
+                list[activePage].classList.add('active');  //3 .하이라이트 넣어주기
+            }
+        </script>
+</body>
+</html>

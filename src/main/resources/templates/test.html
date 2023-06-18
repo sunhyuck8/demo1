@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>폼테스트</title>
+</head>
+
+<style>
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color: green;
+        -webkit-transition: width 1s ease-in-out, height 1s ease-in-out;
+        transition: width 1s ease-in-out, height 1s ease-in-out;
+
+    }
+
+    .box:active {
+        width: 200px;
+        height: 200px;
+    }
+
+    .button {
+        background-color: blue;
+        -webkit-transition: background-color 0.5s ease-in-out;
+        transition: background-color 0.5s ease-in-out;
+    }
+
+    .button:hover {
+        background-color: red;
+    }
+
+</style>
+<body>
+    <div class="text">
+        <button class="button">버튼</button>
+        <div class="box">
+
+        </div>
+    </div>
+</body>
+</html>

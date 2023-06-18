@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/layoutFile :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>myinfo</title>
+</head>
+<body>
+<section class="myinfo_sec">
+    <div class="container">
+
+
+
+        <div class="wrapper_myInfo_left"><!--myinfo left 부분-->
+            <section>
+                <h2>활동정보 </h2>
+                <ul class="link-list">
+                    <li><a href="#">내가 작성한 글</a></li>
+                    <li><a href="#">내가 작성한 댓글</a></li>
+                    <li><a href="#">최근에 본 게시물</a></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Something p</h2>
+                <p>Duis neque sed</p>
+            </section>
+        </div>
+        <div class="wrapper_myInfo_right"><!--myinfo right 부분-->
+            <section class="myInfo_right_top_sec">
+                <h2>내 프로필</h2>
+                <div class="myInfo_right_top">
+                    <div class="myInfo_right_top_left">
+                        <ul class="small-image-list">
+                            <li>
+                                <a href="#"><img src="temp/img/admin-bg.jpg" alt="" id="my-Info-img" /></a>
+                                <input type="file">
+                                <p>Varius nibh. Suspendisse </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="myInfo_right_top_right">
+                        <ul>
+                            <li>
+                                <div class="myInfo_right_top_right_l">
+                                    게시글
+                                </div>
+                                <div class="myInfo_right_top_right_r">
+                                     12
+                                </div>
+                            </li>
+                            <li>
+                                <div class="myInfo_right_top_right_l">
+                                    댓글
+                                </div>
+                                <div class="myInfo_right_top_right_r">
+                                     123
+                                </div>
+                            </li>
+                            <li>
+                                <div class="myInfo_right_top_right_l">
+                                    활동점수
+                                </div>
+                                <div class="myInfo_right_top_right_r">
+                                     434
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <ul class="link-list">
+                    <li>
+                        <input type="text" value="아이디">
+                    </li>
+                    <li>
+                        <input type="text" value="이름">
+                    </li>
+                    <li>
+                        <input type="text" value="성별">
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <a href="#">적용</a>
+                <a href="#">회원탈퇴</a>
+            </section>
+        </div>
+
+
+
+
+
+
+
+    </div>
+</section>
+</body>
+</html>

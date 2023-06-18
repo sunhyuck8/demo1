@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/layoutFile :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>글쓰기</title>
+</head>
+<body>
+<section>
+    <div class="container" >
+        <h3>
+            <div class="heading-large">글쓰기</div>
+        </h3>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="container">
+                <div class="row main-row">
+                    <div class="col-12">
+                        <section>
+                            <h3>글 쓰기</h3>
+                            <div class="formContainer">
+                                <form>
+                                    <h4>제목</h4>
+                                    <input type="hidden" name= "writer" value="aa">
+                                    <input type="text"	id="fname" name="title" placeholder="Title..." value="">
+                                    <input type="text" value="게시판 이름" readonly>
+                                    <select>
+                                        <option value="subtype1">선택</option>
+                                        <option value="subtype2">subtype1</option>
+                                        <option value="subtype3">subtype2</option>
+                                        <option value="subtype4">subtype3</option>
+                                        <option value="subtype5">subtype4</option>
+                                    </select>
+                                    <h4>내용</h4>
+
+                                    <div style="background: #1f7e9a">
+                                        <ul class="myinfo_font_ele">
+                                            <li>
+                                                <button>
+                                                    <span>요소1</span>
+                                                </button>
+                                            </li>
+
+                                            <li>
+                                                <button>
+                                                    <span>요소2</span>
+                                                </button>
+                                            </li>
+
+                                            <li>
+                                                <button>
+                                                    <span>요소4</span>
+                                                </button>
+                                            </li>
+
+                                            <li>
+                                                <button>
+                                                    <span>요소5</span>
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div contenteditable="true"  class="content-area" id="contentman">
+                                        <input type="hidden" name="type" value="2">
+                                        <input type="hidden" name="content">
+                                        <p style="display: none">안녕안녕</p>
+                                        <div>
+                                            <p style="display: none">안녕안녕</p>
+                                        </div>
+                                    </div>
+                                    <div id="file-List">
+                                        <div class="file-container"><!-- 파일첨부 -->
+                                            <input type="file" id="inputfiles" class="fileInputList" name=files>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div><!-- 버튼 -->
+                                    <input type="button" value="목록" onclick="post_list()">
+                                    <input type="button" value="글등록" onclick="registContent()">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/layoutFile :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>커뮤니티</title>
+</head>
+<body>
+<section class="video-gallery-sec" th:fragment="banner_small8">
+    <div class="container">
+        <h3>
+            <div class="heading-large">COMMUNITY</div>
+        </h3>
+        <div style="border-bottom: 1px solid #a7a7a7;background-color: whitesmoke;padding: 2px 13px 3px;margin-bottom: 5px"  >
+            <a th:href="@{#}" class="nav_small_community">전체</a>
+            <a th:href="@{#}" class="nav_small_community">기타</a>
+            <a th:href="@{#}" class="nav_small_community">기타1</a>
+            <a th:href="@{#}" class="nav_small_community">기타2</a>
+        </div>
+
+        <div class="row" style="background-color: whitesmoke">
+            <th:block th:each="num : ${#numbers.sequence(1,12)}">
+                <div class="col-md-3">
+                    <div class="news-block">
+                        <div class="news-media">
+                            <a class="example-image-link" href="img/media-2.jpg" data-lightbox="media-2" data-title="An Alternative Form of Mental Health Care Gains a Foothold">
+                                <img class="img-fluid example-image" src="temp/img/media-2.jpg" alt=""></a>
+                            <span class="gallery-counter"><i class="fa fa-image"></i>12</span>
+                        </div>
+                        <h2 class=" title-small">An Alternative Form of Mental Health Care Gains a Foothold</h2>
+                        <div> </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+
+
+        <div class="row">
+        </div>
+
+        <div style="text-align: center;float: right">
+            <a th:href="@{/com/munity/regist}">글쓰기</a>
+        </div>
+        <div style="text-align: center">
+            ◀ 1 2 3 4 5 6 7 8 9 ▶
+        </div>
+        <div style="text-align: center">
+            <input type="text">
+        </div>
+
+
+    </div>
+</section>
+</body>
+</html>

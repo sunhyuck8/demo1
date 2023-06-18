@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- Header 로그인 후-->
+<header th:fragment="header_aft">
+    <div class="small-top">
+        <div class="container">
+            <div th:insert="~{/inc/date :: date}"></div>
+            <div class="col-lg-3 offset-lg-5">
+                <div class="social-icon">
+                    <a target="_blank" href="#" class=" fa fa-facebook"></a>
+                    <a target="_blank" href="#" class=" fa fa-twitter"></a>
+                    <a target="_blank" href="#" class=" fa fa-google-plus"></a>
+                    <a target="_blank" href="#" class=" fa fa-linkedin"></a>
+                    <a target="_blank" href="#" class=" fa fa-youtube"></a>
+                    <a target="_blank" href="#" class=" fa fa-vimeo-square"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="top-head left">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <h1>커뮤니티 사이트<small>바로 구현 가능한것부터</small></h1>
+                </div>
+                <div class="col-md-6 col-lg-5 offset-lg-3 admin-bar hidden-sm-down">
+                    <nav class="nav nav-inline">
+                        <a href="#" class="nav-link"><span class="ping"></span><i class="fa fa-envelope-o"></i></a>
+                        <a href="#" class="nav-link"><i class="fa fa-bell-o"></i></a>
+                        <a href="/myinfo" class="nav-link">사용자 <img class="img-fluid img-circle" src="/temp/img/admin-bg.jpg"></a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- --Header -->
+
+<!-- Header 로그인 전-->
+<header th:fragment="header_pre">
+    <div class="small-top">
+        <div class="container">
+            <div th:insert="~{/inc/date :: date}"></div>
+            <div class="col-lg-3 offset-lg-5">
+                <div class="social-icon">
+                    <a target="_blank" href="#" class=" fa fa-facebook"></a>
+                    <a target="_blank" href="#" class=" fa fa-twitter"></a>
+                    <a target="_blank" href="#" class=" fa fa-google-plus"></a>
+                    <a target="_blank" href="#" class=" fa fa-linkedin"></a>
+                    <a target="_blank" href="#" class=" fa fa-youtube"></a>
+                    <a target="_blank" href="#" class=" fa fa-vimeo-square"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="top-head left">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <h1>커뮤니티 사이트<small>바로 구현 가능한것부터</small></h1>
+                </div>
+                <div class="col-md-6 col-lg-5 offset-lg-3 admin-bar hidden-sm-down">
+                    <nav class="nav nav-inline">
+                        <div id="testbox">
+                            <input type="text" class="text" placeholder="ID" />
+                            <input type="text" class="text" placeholder="Password" />
+                        </div>
+                        <div id="btn_login" >
+                            <button>로그인</button>
+                            <button>회원가입</button>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- --Header -->

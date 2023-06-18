@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/layoutFile :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>index</title>
+</head>
+<body>
+<section>
+
+    <!-- banner -->
+    <section th:insert="~{/index/banner :: banner}"></section>
+    <!-- banner 끝 -->
+
+    <!-- banner_vid -->
+    <section th:insert="~{/index/banner_vid :: banner_vid}"></section>
+    <!-- banner_vid 끝 -->
+
+    <!-- banner_top3 -->
+    <section th:insert="~{/index/banner_top3 :: banner_top3}"></section>
+    <!-- banner_top3 끝 -->
+
+    <!-- banner_small8 -->
+    <section th:insert="~{/index/banner_small8 :: banner_small8}"></section>
+    <!-- banner_small8 끝 -->
+
+    <!-- banner_bottom_top5 -->
+    <div th:insert="~{/index/banner_top5 :: banner_bottom_top5}"></div>
+    <!-- banner_bottom_top5 끝 -->
+</section>
+</body>
+</html>
