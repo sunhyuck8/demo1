@@ -1,0 +1,76 @@
+-- database 생성
+create database demo default character set utf8;
+-- 테스트용 테이블 생성
+create table apple(
+test_id int primary key auto_increment
+, name varchar(20)
+) default character set utf8;
+
+insert into apple(name) values('test');
+
+
+
+--user 테이블생성
+create table user(
+    user_pk int primary key auto_increment
+    , user_id varchar(20)
+    , user_pass varchar(20)
+    , user_name varchar(20)
+    , user_age int default 0
+    , user_sex varchar(10)
+    , user_email varchar(20)
+    , user_intro text
+    , user_signUpdate timestamp default now()
+    , user_withdraw timestamp default 0
+) default character set utf8;
+
+INSERT INTO user(user_id, user_pass, user_name, user_age, user_sex, user_email, user_intro) VALUES('test', 'test', 'dumy1', 1, 'male', 'test@naver.com', 'test');
+INSERT INTO user(user_id, user_pass, user_name, user_age, user_sex, user_email, user_intro) VALUES('test2', 'test2', 'dumy2', 2, 'male', 'test2@naver.com', 'test');
+
+-- board 테이블 생성
+create table board(
+board_pk int primary key auto_increment
+    , board_title varchar(20)
+    , board_content text
+    , board_categoryNum int
+    , board_subCategoryNum int
+    , user_pk int
+    , constraint fk_user_pk foreign key (user_pk) references user(user_pk)
+) default character set utf8;
+
+INSERT INTO board(board_title, board_content, board_categoryNum, board_subCategoryNum, user_pk) VALUES('test1', 'testtest', 1, 2,1)
+INSERT INTO board(board_title, board_content, board_categoryNum, board_subCategoryNum, user_pk) VALUES('test2', 'testtest2', 2, 2,1)
+
+-- boardFiles 테이블 생성
+create table boardFiles(
+boardFiles_pk int primary key auto_increment
+    , boardFiles_oriName varchar(20)
+    , boardFiles_reName varchar(20)
+    , boardFiles_size int
+    , board_pk int
+    , constraint fk_board_pk foreign key (board_pk) references board(board_pk)
+) default character set utf8;
+
+INSERT INTO boardFiles(boardFiles_oriName,boardFiles_reName,boardFiles_size,board_pk) values('pic1','repic1',100,1);
+INSERT INTO boardFiles(boardFiles_oriName,boardFiles_reName,boardFiles_size,board_pk) values('pic2','repic2',100,1);
+-- category 테이블생성
+create table category(
+     categoryName varchar(20)
+    , categoryNum int primary key
+) default character set utf8;
+
+INSERT INTO category(categoryName, categoryNum) VALUES('board1', 1);
+INSERT INTO category(categoryName, categoryNum) VALUES('board2', 2);
+-- subCategory 테이블생성
+create table subCategory(
+     subCategoryName varchar(20)
+    , subCategoryNum int
+    , categoryNum int
+    , constraint fk_categoryNum foreign key (categoryNum) references category(categoryNum)
+) default character set utf8;
+
+INSERT INTO subCategory(subCategoryName, subCategoryNum, categoryNum) VALUES('b1Sub1',1,1);
+INSERT INTO subCategory(subCategoryName, subCategoryNum, categoryNum) VALUES('b1Sub2',2,1);
+INSERT INTO subCategory(subCategoryName, subCategoryNum, categoryNum) VALUES('b1Sub3',3,1);
+INSERT INTO subCategory(subCategoryName, subCategoryNum, categoryNum) VALUES('b2Sub1',1,2);
+INSERT INTO subCategory(subCategoryName, subCategoryNum, categoryNum) VALUES('b2Sub2',2,2);

@@ -1,5 +1,6 @@
 package com.bhome.demo.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class BoardController {
 
     //글등록하는 폼으로 이동
@@ -20,4 +22,8 @@ public class BoardController {
         session.setAttribute("loginFlag", false);
         return "board/registForm";
     }
+
+
+
+
 }

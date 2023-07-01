@@ -169,8 +169,9 @@
     <body>
         <!--loading, Header, top navi 시작-->
         <div th:insert="~{/inc/loding :: loading}"></div>
-        <header th:if="${#session.getAttribute('loginFlag')}==true" th:insert="~{/inc/header :: header_pre}"></header>  <!--세션에 정보가 있을경우-->
-        <header th:if="${#session.getAttribute('loginFlag')}==false" th:insert="~{/inc/header :: header_aft}"></header> <!--세션에 정보가 없을경우-->
+
+        <header th:if="${#session?.getAttribute('loginFlag')==null}" th:insert="~{/inc/header :: header_pre}"></header>  <!--세션에 정보가 있을경우-->
+        <header th:unless="${#session?.getAttribute('loginFlag')==null}" th:insert="~{/inc/header :: header_aft}"></header>  <!--세션에 정보가 있을경우-->
         <nav th:insert="~{/inc/top_navi :: navi_top}"></nav>
 
 

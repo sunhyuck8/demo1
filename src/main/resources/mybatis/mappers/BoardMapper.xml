@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bhome.demo.mapper.BoardMapper">
+
+    <resultMap id="boardFilesResultMap" type="BoardFilesDto">
+        <id property="boardFiles_pk" column="boardFiles_pk"/>
+        <result property="boardFiles_oriName" column="boardFiles_oriName"/>
+        <result property="boardFiles_reName" column="boardFiles_reName"/>
+        <result property="boardFiles_size" column="boardFiles_size"/>
+        <result property="board_pk" column="board_pk"/>
+    </resultMap>
+
+    <resultMap id="boardResultMap" type="BoardDto">
+        <id property="board_pk" column="board_pk"/>
+        <result property="board_title" column="board_title"/>
+        <result property="board_content" column="board_content"/>
+        <result property="board_categoryNum" column="board_categoryNum"/>
+        <result property="board_subCategoryNum" column="board_subCategoryNum"/>
+        <result property="user_pk" column="user_pk"/>
+
+        <collection property="boardFileList" resultMap="boardFilesResultMap"/>
+    </resultMap>
+
+
+    <select id="boardSelectAll" resultMap="boardResultMap">
+        SELECT b.board_pk, b.board_title, b.board_content, b.board_categoryNum, b.board_subCategoryNum, b.user_pk,
+               bf.boardFiles_pk, bf.boardFiles_oriName, bf.boardFiles_reName, bf.boardFiles_size
+        FROM board b
+                 LEFT JOIN boardFiles bf ON b.board_pk = bf.board_pk
+    </select>
+
+
+    <select id="boardSelectAllByType" parameterType="int" resultMap="boardResultMap">
+        SELECT b.board_pk, b.board_title, b.board_content, b.board_categoryNum, b.board_subCategoryNum, b.user_pk,
+               bf.boardFiles_pk, bf.boardFiles_oriName, bf.boardFiles_reName, bf.boardFiles_size
+        FROM board b
+                 LEFT JOIN boardFiles bf ON b.board_pk = bf.board_pk
+        WHERE b.board_categoryNum = #{board_categoryNum} AND b.board_subCategoryNum = #{board_subCategoryNum}
+    </select>
+
+    <select id="boardDetail" parameterType="int" resultType="BoardDto">
+        SELECT b.board_pk, b.board_title, b.board_content,c.categoryName,s.subCategoryName,b.user_pk
+        FROM board b
+        INNER JOIN category c
+        ON b.board_categoryNum = c.categoryNum
+        INNER JOIN subCategory s
+        ON b.board_subCategoryNum = s.categoryNum
+        WHERE b.board_pk = #{board_pk};
+
+    </select>
+
+
+
+</mapper>

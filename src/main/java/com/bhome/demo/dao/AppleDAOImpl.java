@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class AppleDAOImpl implements AppleDAO{
-
     @Override
     public AppleMapperDTO selectApple() {
         return null;
