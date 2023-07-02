@@ -2,6 +2,7 @@ package com.bhome.demo.controller;
 
 import com.bhome.demo.dto.AppleMapperDTO;
 import com.bhome.demo.dto.BoardDto;
+import com.bhome.demo.dto.BoardNDto;
 import com.bhome.demo.service.BoardService;
 import com.bhome.demo.service.ServiceTest;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +35,8 @@ public class HomeController {
 //        session.setAttribute("loginFlag", false);
 
 //        AppleMapperDTO apple = serviceTest.selectApple();
-        List<BoardDto> list = boardService.boardSelectAll();
-        System.out.println(list.get(1));
+//        BoardNDto board = boardService.boardDetail(2);
+//        System.out.println(board);
 
         return "index/index";
     }

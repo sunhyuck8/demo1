@@ -1,6 +1,7 @@
 package com.bhome.demo.service;
 
 import com.bhome.demo.dto.BoardDto;
+import com.bhome.demo.dto.BoardNDto;
 import com.bhome.demo.mapper.BoardMapper;
 import org.springframework.stereotype.Service;
 
@@ -27,13 +28,14 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public BoardDto boardDetail(int board_pk) {
-        return null;
+    public BoardNDto boardDetail(int board_pk) {
+        System.out.println(boardMapper.boardDetail(board_pk).toString());
+        return boardMapper.boardDetail(board_pk);
     }
 
     @Override
     public void boardDelete(int board_pk) {
-
+        boardMapper.boardDelete(board_pk);
     }
 
     @Override

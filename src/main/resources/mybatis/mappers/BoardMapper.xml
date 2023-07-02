@@ -39,17 +39,46 @@
         WHERE b.board_categoryNum = #{board_categoryNum} AND b.board_subCategoryNum = #{board_subCategoryNum}
     </select>
 
-    <select id="boardDetail" parameterType="int" resultType="BoardDto">
+
+
+    <select id="getFilesSelect" parameterType="int" resultType="BoardFilesDto">
+        SELECT boardFiles_pk, boardFiles_oriName, boardFiles_reName, boardFiles_size, board_pk
+        FROM boardFiles where board_pk=#{board_pk}
+    </select>
+
+        <resultMap id="boardNResultMap" type="BoardNDto">
+            <id property="board_pk" column="board_pk"/>
+            <result property="board_title" column="board_title"/>
+            <result property="board_content" column="board_content"/>
+            <result property="categoryName" column="categoryName"/>
+            <result property="subCategoryName" column="subCategoryName"/>
+            <result property="user_pk" column="user_pk"/>
+
+            <collection property="boardFileList"
+                        javaType="java.util.List"
+                        ofType="BoardFilesDto"
+                        select="getFilesSelect"
+                        column="board_pk"/>
+        </resultMap>
+
+
+
+    <select id="boardDetail" parameterType="int" resultMap="boardNResultMap">
+
         SELECT b.board_pk, b.board_title, b.board_content,c.categoryName,s.subCategoryName,b.user_pk
         FROM board b
         INNER JOIN category c
         ON b.board_categoryNum = c.categoryNum
         INNER JOIN subCategory s
-        ON b.board_subCategoryNum = s.categoryNum
-        WHERE b.board_pk = #{board_pk};
+        ON b.board_subCategoryNum = s.subCategoryNum
+        WHERE b.board_pk = #{board_pk}
+        GROUP BY b.board_pk
 
     </select>
 
 
+    <delete id="boardDelete" parameterType="int">
+        delete from board where board_pk=#{board_pk};
+    </delete>
 
 </mapper>
