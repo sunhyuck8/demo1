@@ -45,7 +45,7 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public int boardRegist(BoardDto boardDto) {
-        return 0;
+        return boardMapper.boardRegist(boardDto);
     }
 
     @Override

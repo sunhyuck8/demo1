@@ -78,7 +78,24 @@
 
 
     <delete id="boardDelete" parameterType="int">
-        delete from board where board_pk=#{board_pk};
+        DELETE FROM board
+        WHERE board_pk=#{board_pk}
     </delete>
 
+    <insert id="boardRegist" parameterType="BoardDto">
+        INSERT INTO board(
+            board_title,
+            board_content,
+            board_categoryNum,
+            board_subCategoryNum,
+            user_pk
+            )
+        VALUES(
+               #{board_title},
+               #{board_content},
+               #{board_categoryNum},
+               #{board_subCategoryNum},
+               #{user_pk}
+               )
+    </insert>
 </mapper>

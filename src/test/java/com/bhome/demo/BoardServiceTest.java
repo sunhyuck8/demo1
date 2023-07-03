@@ -15,6 +15,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -60,6 +62,23 @@ public class BoardServiceTest {
 
             boardService.boardDelete(testBoard_pk);
             log.info("완");
-
     }
+
+
+    @Test
+    @DisplayName("boardService 테스트 regist")
+    void boardRegist() throws NoSuchFieldException, IllegalAccessException {
+        List list = new ArrayList();
+        BoardDto boardDto = new BoardDto(0,"test_title","test_content",1,1,1,list);
+        //pk에 0을 넣고 테스트하지만 반환 값에서 pk가 정상적으로 들어온다.
+        //Field객체로 pk를 먼저선언
+//        Field pkField = boardDto.getClass().getDeclaredField("board_pk");
+//        pkField.setAccessible(true);
+//        pkField.set(boardDto,51);
+
+        int result =0;
+        result = boardService.boardRegist(boardDto);
+        log.info("변화된 레코드수는 ={}",result);
+    }
+
 }
