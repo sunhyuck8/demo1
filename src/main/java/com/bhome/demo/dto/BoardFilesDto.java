@@ -3,6 +3,7 @@ package com.bhome.demo.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @AllArgsConstructor //모든 필드에 대한 인수를 수락하는 생성자 생성해줌
@@ -12,7 +13,7 @@ public class BoardFilesDto {
     private int boardFiles_pk;
     private String boardFiles_oriName;
     private String boardFiles_reName;
-    private String boardFiles_size;
+    private int boardFiles_size;
     private int board_pk;
     /*multipartList들어갈예정*/
 }

@@ -3,6 +3,7 @@ package com.bhome.demo.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class BoardDto {
     private int board_subCategoryNum;
     private int user_pk;
 
+
     //첨부 이미지들
-    private List boardFileList;
+    private List<BoardFilesDto> boardFileList;
 }

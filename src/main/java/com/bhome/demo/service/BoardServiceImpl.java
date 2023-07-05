@@ -1,6 +1,7 @@
 package com.bhome.demo.service;
 
 import com.bhome.demo.dto.BoardDto;
+import com.bhome.demo.dto.BoardFilesDto;
 import com.bhome.demo.dto.BoardNDto;
 import com.bhome.demo.mapper.BoardMapper;
 import org.springframework.stereotype.Service;
@@ -39,13 +40,22 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public BoardDto boardUpdate(BoardDto boardDto) {
-        return null;
+    public int boardUpdate(BoardDto boardDto) {
+        return boardMapper.boardUpdate(boardDto);
     }
 
     @Override
     public int boardRegist(BoardDto boardDto) {
-        return boardMapper.boardRegist(boardDto);
+
+        int result =boardMapper.boardRegist(boardDto);
+        int board_pk=boardDto.getBoard_pk();
+        List<BoardFilesDto> list= boardDto.getBoardFileList();
+        if(list.size()==0||list==null){
+            return result;
+        }else{
+            int result2 = boardMapper.boardRegistFiles(list);
+            return result2;
+        }
     }
 
     @Override

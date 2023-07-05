@@ -11,6 +11,8 @@
         <result property="board_pk" column="board_pk"/>
     </resultMap>
 
+
+
     <resultMap id="boardResultMap" type="BoardDto">
         <id property="board_pk" column="board_pk"/>
         <result property="board_title" column="board_title"/>
@@ -82,14 +84,16 @@
         WHERE board_pk=#{board_pk}
     </delete>
 
-    <insert id="boardRegist" parameterType="BoardDto">
+
+    <!--게시글 등록-->
+    <insert id="boardRegist" parameterType="BoardDto" useGeneratedKeys="true" keyProperty="board_pk">
         INSERT INTO board(
-            board_title,
-            board_content,
-            board_categoryNum,
-            board_subCategoryNum,
-            user_pk
-            )
+        board_title,
+        board_content,
+        board_categoryNum,
+        board_subCategoryNum,
+        user_pk
+        )
         VALUES(
                #{board_title},
                #{board_content},
@@ -98,4 +102,42 @@
                #{user_pk}
                )
     </insert>
+
+    <insert id="boardRegistFiles" parameterType="java.util.List" >
+        <selectKey keyProperty="board_pk" resultType="int" order="BEFORE">
+            SELECT max(board_pk) from board
+        </selectKey>
+            INSERT INTO boardfiles(
+                 boardFiles_oriName,
+                 boardFiles_reName,
+                 boardFiles_size,
+                 board_pk
+                 )
+            VALUES
+        <foreach collection="list" item="board" separator="," >
+                (
+                    #{board.boardFiles_oriName},
+                    #{board.boardFiles_reName},
+                    #{board.boardFiles_size},
+                    #{board_pk}
+                )
+        </foreach>
+    </insert>
+
+
+
+
+
+
+    <update id="boardUpdate" parameterType="BoardDto">
+        UPDATE board set
+                board_title=#{board_title},
+                board_content=#{board_content},
+                board_categoryNum=#{board_categoryNum},
+                board_subCategoryNum=#{board_subCategoryNum}
+        WHERE board_pk=#{board_pk}
+    </update>
+
+
+
 </mapper>

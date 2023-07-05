@@ -13,7 +13,7 @@ public interface BoardService {
 
     public void boardDelete(int board_pk);//삭제하기
 
-    public BoardDto boardUpdate(BoardDto boardDto);//수정하기
+    public int boardUpdate(BoardDto boardDto);//수정하기
 
     public int boardRegist(BoardDto boardDto);//등록하기
 
