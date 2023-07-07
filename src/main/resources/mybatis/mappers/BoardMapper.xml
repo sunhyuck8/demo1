@@ -125,10 +125,6 @@
     </insert>
 
 
-
-
-
-
     <update id="boardUpdate" parameterType="BoardDto">
         UPDATE board set
                 board_title=#{board_title},
@@ -139,5 +135,22 @@
     </update>
 
 
-
+    <select id="boardSelectAllByItem" parameterType="String" resultMap="boardResultMap">
+        SELECT b.board_pk, b.board_title, b.board_content, b.board_categoryNum, b.board_subCategoryNum, b.user_pk,
+               bf.boardFiles_pk, bf.boardFiles_oriName, bf.boardFiles_reName, bf.boardFiles_size
+        FROM board b
+                 LEFT JOIN boardFiles bf ON b.board_pk = bf.board_pk where b.board_content LIKE CONCAT('%', #{item}, '%')
+    </select>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 </mapper>

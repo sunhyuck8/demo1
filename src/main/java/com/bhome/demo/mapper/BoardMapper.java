@@ -19,6 +19,6 @@ public interface BoardMapper {
 
     int boardRegistFiles(List<BoardFilesDto> list);
 
-    List boardSelectAllByItem(String searchItem);
+    List<BoardDto> boardSelectAllByItem(String searchItem);
     List boardSelectAllByWriter(String writer);
 }

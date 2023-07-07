@@ -18,7 +18,7 @@ public interface BoardService {
     public int boardRegist(BoardDto boardDto);//등록하기
 
     /*==찾기==*/
-    public List boardSelectAllByItem(String searchItme);//아이템별 찾기
+    public List<BoardDto> boardSelectAllByItem(String searchItme);//아이템별 찾기
     public List boardSelectAllByWriter(String writer);//아이템별 찾기//작성자별 찾기
 
 

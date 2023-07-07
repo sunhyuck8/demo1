@@ -40,6 +40,8 @@ create table board(
 
 INSERT INTO board(board_title, board_content, board_categoryNum, board_subCategoryNum, user_pk) VALUES('test1', 'testtest', 1, 2,1);
 INSERT INTO board(board_title, board_content, board_categoryNum, board_subCategoryNum, user_pk) VALUES('test2', 'testtest2', 2, 2,1);
+INSERT INTO board(board_title, board_content, board_categoryNum, board_subCategoryNum, user_pk) VALUES('test2', 'testtest2', 2, 2,2);
+INSERT INTO board(board_title, board_content, board_categoryNum, board_subCategoryNum, user_pk) VALUES('test22', 'testtest22', 2, 2,2);
 
 -- boardFiles 테이블 생성
 create table boardFiles(

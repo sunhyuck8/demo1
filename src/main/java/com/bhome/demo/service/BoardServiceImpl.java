@@ -59,8 +59,8 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List boardSelectAllByItem(String itme) {
-        return null;
+    public List<BoardDto> boardSelectAllByItem(String itme) {
+        return new ArrayList<BoardDto>(boardMapper.boardSelectAllByItem(itme));
     }
 
     @Override

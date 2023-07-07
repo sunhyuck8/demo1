@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bhome.demo.mapper.UserMapper">
+    <insert id="userRegist" parameterType="UserDto">
+        INSERT INTO user(
+                         user_id,
+                         user_pass,
+                         user_name,
+                         user_age,
+                         user_sex,
+                         user_email,
+                         user_intro
+                         )
+        VALUES(
+               #{user_id},
+               #{user_pass},
+               #{user_name},
+               #{user_age},
+               #{user_sex},
+               #{user_email},
+               #{user_intro}
+               );
+    </insert>
+
+    <select id="userLogin" parameterType="UserDto" resultType="UserDto">
+            SELECT user_pk,
+                   user_id,
+                   user_pass,
+                   user_name,
+                   user_age,
+                   user_sex,
+                   user_email,
+                   user_intro,
+                   user_signUpdate,
+                   user_withdraw
+            FROM user
+            WHERE user_id =#{user_id} AND user_pass=#{user_pass}
+    </select>
+
+    <update id="userUpdateInfo" parameterType="UserDto">
+        UPDATE user SET
+               user_id=#{user_id},
+               user_pass=#{user_pass},
+               user_name=#{user_name},
+               user_age=#{user_age},
+               user_sex=#{user_sex},
+               user_email=#{user_email},
+               user_intro=#{user_intro}
+        where user_pk=#{user_pk}
+
+    </update>
+
+    <update id="userWithdraw" parameterType="int" useGeneratedKeys="true" keyProperty="user_name">
+        UPDATE user SET
+                        user_name='탈퇴한 회원'
+        where user_pk=#{user_pk}
+
+    </update>
+
+    <!--delete는 추후 구현 예정 , 시간이 지나면 삭제하게끔 withdraw가 일정시간 지난걸 확인후 삭제-->
+</mapper>
