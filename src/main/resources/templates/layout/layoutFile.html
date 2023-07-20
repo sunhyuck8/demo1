@@ -126,7 +126,7 @@
                 padding: 12px 20px;
                 border: none;
                 border-radius: 4px;
-                cursor: pointer;
+                /*cursor: pointer;*/
             }
 
             input[type=button]:hover {
@@ -162,6 +162,156 @@
             }
 
             /*board registForm END*/
+
+            /*userLoginForm*/
+
+            .login-form  {
+                display: block;
+                width: 50%;
+                margin: auto;
+                padding-top: 100px;
+                padding-bottom: 200px;
+                text-align: center;
+                font-family: fantasy;
+
+            }
+
+            .login-form__container {
+                width : 80%;
+                text-align: center;
+                font-family: fantasy;
+                margin: auto;
+                padding-top: 50px;
+                padding-bottom: 100px;
+                background-color: #f2f2f2;
+
+            }
+            .login-form__wrapper , .login-form__input::placeholder{
+                text-align: center;
+                font-size: 20px;
+                width: 90%;
+                margin: auto;
+            }
+            .login-form__form{
+                margin: auto;
+            }
+            .login-form__form__wrapper{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .login-form__input{
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+                margin: 8px;
+                display: block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                font-size: 30px;
+            }
+            .login-form__btn {
+                width: 100%;
+                background-color: #04AA6D;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                font-size: 20px;
+                font-weight: bold;
+            }
+            .login-form__btn:hover {
+                background-color: #45a049;
+            }
+
+            login-form__wrapper {
+                border-radius: 5px;
+                background-color: #f2f2f2;
+                padding: 20px;
+            }
+
+            /*userLoginForm END*/
+
+            /*userRegistForm*/
+            .user-regist {
+                font-family: Arial, Helvetica, sans-serif;
+                box-sizing: border-box;
+                margin-left: 20%;
+                margin-right: 20%;
+                -webkit-box-sizing: inherit;
+                box-sizing: inherit;
+            }
+
+
+
+            .user-regist__input-wrapper input[type=text], .user-regist__input-wrapper input[type=password] {
+                width: 100%;
+                padding: 15px;
+                margin: 5px 0 22px 0;
+                display: inline-block;
+                border: none;
+                background: #f1f1f1;
+            }
+
+            .user-regist__input-wrapper input[type=text]:focus, .user-regist__input-wrapper input[type=password]:focus {
+                background-color: #ddd;
+                outline: none;
+            }
+            .user-regist__photo input[type=file]{
+                display: none;
+            }
+            .user-regist__photo label{
+                height: 30%;
+                padding: 3px;
+                background-color: #04AA6D;
+                text-align: center;
+                color: white;
+                border-radius: 10px;
+                opacity: 0.9;
+            }
+            .user-regist__photo label:hover{
+                opacity: 1;
+            }
+
+
+            .user-regist hr {
+                border: 1px solid #f1f1f1;
+                margin-bottom: 25px;
+            }
+
+            .registerbtn {
+                background-color: #04AA6D;
+                color: white;
+                padding: 16px 20px;
+                margin: 8px 0;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+                opacity: 0.9;
+                border-radius: 10px;
+            }
+
+            .registerbtn:hover {
+                opacity: 1;
+            }
+
+            .user-regist a {
+                color: dodgerblue;
+            }
+
+            .signin {
+                background-color: #f1f1f1;
+                text-align: center;
+            }
+
+            .thumbnail {
+                width: 200px;
+                height: 200px;
+                border-radius: 70%;
+            }
+            /*userRegistForm*/
         </style>
 
     <!--===================================================================================================-->
@@ -228,6 +378,37 @@
                     }
                 list[activePage].classList.add('active');  //3 .하이라이트 넣어주기
             }
+
+            //registForm
+            window.addEventListener('load', function() {
+
+                const container = document.querySelector('.user-regist__photo');
+                const frame = container.querySelector('.preview');
+                const fileInput = container.querySelector('input[type="file"]');
+
+                fileInput.addEventListener('input', () => {		//2. input 이 될시 실행 함수
+
+                    if(!isImage(fileInput.files[0])) {				//3. 파일이 아닐경우 return
+                        alert('Image 파일만 업로드 할 수 있습니다.');
+                        return;
+                    }
+
+                    const reader = new FileReader();			//4. 파일 읽어낼 리더 생성
+                    reader.addEventListener('load', () => {
+
+                        const img = document.createElement('IMG');	//5. img 요소를 생성
+                        img.classList.add('thumbnail'); 		// 6.img요소에 'thumbnail'클래스를 부여
+                        img.src = reader.result;
+                        frame.insertAdjacentElement('beforeend', img);
+                    });
+                    reader.readAsDataURL(fileInput.files[0]);
+                });
+                function isImage(file){			//파일이 들어 왔을때 file에 'image'의 요소가 없을 시 -1, 있을 땐 0이기 때문에 '>='를 통해 0 보다 크면 true를 반환
+                    return file.type.indexOf('image') >= 0;
+                }
+            });
+
+
         </script>
 </body>
 </html>
