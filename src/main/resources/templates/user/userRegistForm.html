@@ -9,31 +9,58 @@
     <div class="user-regist">
 
         <div class="user-regist__container">
-            <form>
+            <form th:action="@{/user/regist1}" th:object="${userDto}" method="post">
                 <div class="user_regist__wrapper">
                     <h1>회원가입</h1>
                     <hr>
+                    <input type="hidden" th:field="*{user_pk}">
                     <div class="user-regist__input-wrapper">
                         <label for="user_id"><b>Id</b></label>
                         <input type="text" placeholder="Your Id..." name="user_id" id="user_id" required>
                     </div>
                     <div class="user-regist__input-wrapper">
-                        <label for="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Your Password..." name="password" id="psw" required>
+                        <label for="user_pass"><b>Password</b></label>
+                        <input type="password" placeholder="Your Password..." name="user_pass" id="user_pass" required>
                     </div>
                     <div class="user-regist__input-wrapper">
-                        <label for="psw-repeat"><b>Name</b></label>
-                        <input type="text" placeholder="Your Name.." name="name" id="psw-repeat" required>
+                        <label for="user_name"><b>Name</b></label>
+                        <input type="text" placeholder="Your Name.." name="user_name" id="user_name" required>
                     </div>
+                    <div class="user-regist__input-wrapper">
+                        <label for="user_age"><b>나이</b></label>
+                        <input type="number" th:field="*{user_age}" placeholder="Your Name.."  required>
+                    </div>
+                    <div class="user-regist__input-wrapper">
+                        <label for="user_sex"><b> 성별</b></label>
+                        <input type="text" th:field="*{user_sex}" placeholder="Your Name.."  required>
+                    </div>
+                    <div class="user-regist__input-wrapper">
+                        <label for="user_email"><b> 이메일</b></label>
+                        <input type="text" th:field="*{user_email}" placeholder="Your Name.."  required>
+                    </div>
+                    <div class="user-regist__input-wrapper">
+                        <label for="user_intro"><b> 소개</b></label>
+                        <input type="text" th:field="*{user_intro}" placeholder="Your Name.."   required>
+                    </div>
+<!--                    <div class="user-regist__input-wrapper">-->
+<!--                        <label for="user_signUpdate"><b> 가입일</b></label>-->
+<!--                        <input type="datetime-local" th:field="*{user_signUpdate}" placeholder="Your Name.."  required>-->
+<!--                    </div>-->
+<!--                    <div class="user-regist__input-wrapper">-->
+<!--                        <label for="user_withdraw"><b> 탈퇴일</b></label>-->
+<!--                        <input type="datetime-local" th:field="*{user_withdraw}" placeholder="Your Name.."  required>-->
+<!--                    </div>-->
 
-                    <div class="user-regist__photo">
-                        <h3>Photo</h3>
-                        <input id="photo" type="file" >
-                        <label for="photo">사진 첨부</label>
-                        <div class="preview"></div>
-                    </div>
+
+
+<!--                    <div class="user-regist__photo">-->
+<!--                        <h3>Photo</h3>-->
+<!--                        <input id="photo" type="file" >-->
+<!--                        <label for="photo">사진 첨부</label>-->
+<!--                        <div class="preview"></div>-->
+<!--                    </div>-->
                     <hr>
-                    <button type="button" class="registerbtn">회원 등록</button>
+                    <button type="submit" class="registerbtn" >회원 등록</button>
                 </div>
             </form>
         </div>
