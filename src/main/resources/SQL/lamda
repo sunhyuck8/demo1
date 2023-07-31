@@ -1,0 +1,97 @@
+==  람다(Lambda)  ==  [코드(함수) 자체를 변수에 담을 수 있다.]
+
+Runable runnable = new Runable(){
+    @Override
+       public void run(){
+
+       }
+    ;                                   <-기본(인터페이스)
+-----------------------------------
+Runnable runnble = () -> {   };         <-Lambda
+
+1. 형태
+    ()      ->       {...};
+    파라미터  화살표    실행문
+
+2. 조건
+    인터페이스가 하나의 public 추상메서드를 가지고 있을 경우 lambda식으로 표현 가능
+
+
+3. 표현가능한 예시
+    List<String> list =  new ArrayList<>();
+    list.stream().forEach( (String str) -> { System.out.print(str); });
+    list.stream().forEach( (String str) ->  System.out.print(str) );    한줄로 작성이 되면 대괄호 생략가능
+    list.stream().forEach( ( str ) ->  System.out.print(str) );   파라미터의 값이 String 처럼 예측이 가능하면 생략가능
+    list.stream().forEach( ( System.out::println );
+
+4. 하나의 추상메소드를 가지는 인터페이스는 함수형 인터페이스
+    람다표현식을 통해 만든 변수의 반환값타입은 인터페이스 형
+    Consummer<String> con  = s -> System.out.println(s);
+    con.accept('java');
+5. 함수형 인터페이스 종류
+    ------------------------------------------
+    │   함수형 인터페이스   │   함수 디스크립터    │
+    ------------------------------------------
+    │   Predicate<T>     │  T -> boolean     │test()
+    │   Consumer<T>      │  T -> void        │accpet()
+    │   Function<T,R>    │  T -> R           │apply()
+    │   Supplier<T>      │  () -> T          │get()
+    ------------------------------------------
+
+ == 스트림(Stream API)  ==  [코드(함수) 자체를 변수에 담을 수 있다.]
+
+ 1.Collection 객체를 통해 스트림을 생성할 수 있다.
+    List<String> list = Array....
+    Stream<String> stream = list.stream();
+
+ 2. 연산은 연결을 통해 파이프라인으로 구성가능하다.
+    스트림 대상 데이터에 다양한 연산 조합이 가능함.
+    스트림 연산은 중간연산과 최종연산이 있는데
+    > 중간 연산은 stream을 반환하는 메소드들을 통해 메소드 체이닝으로 구현가능하다.
+        ex) filter, map, limit, sorted, distinct, peek, skip
+    > 최종 연산 ex) forEach, count, collect, sum, reduce...
+
+
+    =============================================================================
+[추상 메서드란]----------------
+    -부모 클래스
+    abstract class Vehicle {
+     public Vehicle() {}
+
+     void board(){
+      System.out.println("탑승하다");
+     }
+
+     abstract void move();
+     abstract void pay();
+    }
+    -자식클래스
+    public class Taxi extends Vehicle {
+     public Taxi() {}
+
+     @Override
+     void move() {
+      System.out.println("목적지에 도착하다.");
+     }
+
+     @Override
+     void pay() {
+      System.out.println("이동거리 따른 요금을 지불하다");
+     }
+    }
+    -실행
+
+    public class AbstractTest {
+     public static void main(String[] args) {
+      Vehicle t = new Taxi();
+      t.board();
+      t.move();
+      t.pay();
+
+     }
+    }
+    ----------------[추상 메서드]
+
+    [파이프라인형식]
+    데이터 처리와 분석을 단계별로 구성하여 효율적으로 순서를 결정하는 방법
+

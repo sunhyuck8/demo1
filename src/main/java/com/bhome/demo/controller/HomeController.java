@@ -43,8 +43,8 @@ public class HomeController {
     //community 페이지  사진을 위주로 올리는 게시판
     @GetMapping("/community")
     public String idx_community(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        session.setAttribute("loginFlag", true);
+//        HttpSession session = request.getSession();
+//        session.setAttribute("loginFlag", true);
         return "community/index_community";
     }
     //cs 고객센터 불편한 내용들을 컨펌받는 게시판
