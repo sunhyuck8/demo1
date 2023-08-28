@@ -38,7 +38,11 @@
         </div>
         
 <!--        <img th:src="${testVo.getPhoto().getOriginalFilename()}">-->
-        <img th:src="@{/user/user_dummy.png}">
+        <h1 th:text="${session.user.getUserPhoto_reName()}">vo값은</h1>
+<!--        <img th:src="@{/user/}+${session.user.getUserPhoto_reName()}">-->
+<!--        <img th:src="@{/user/}${session.user.getUserPhoto_reName()}">-->
+        <img th:src="@{/user/__${session.user.getUserPhoto_reName()}__}">
+<!--        <img th:src="@{/user/${session.user.getUserPhoto_reName()}}">-->
     </div>
 </body>
 </html>

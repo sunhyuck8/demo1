@@ -4,6 +4,7 @@
 <configuration>
     <properties resource="application.properties"/>
     <typeAliases>
+<!--    Dto    -->
         <typeAlias type="com.bhome.demo.dto.AppleMapperDTO" alias="AppleMapperDTO"/>
         <typeAlias type="com.bhome.demo.dto.UserDto" alias="UserDto"/>
         <typeAlias type="com.bhome.demo.dto.BoardDto" alias="BoardDto"/>
@@ -11,6 +12,11 @@
         <typeAlias type="com.bhome.demo.dto.BoardFilesDto" alias="BoardFilesDto"/>
         <typeAlias type="com.bhome.demo.dto.CategoryDto" alias="CategoryDto"/>
         <typeAlias type="com.bhome.demo.dto.SubCategroyDto" alias="SubCategroyDto"/>
+        <typeAlias type="com.bhome.demo.dto.UserRegistDto" alias="UserRegistDto"/>
+        <typeAlias type="com.bhome.demo.dto.UserFileDto" alias="UserFileDto"/>
+        <typeAlias type="com.bhome.demo.dto.UserLoginDto" alias="UserLoginDto"/>
+<!--    Vo    -->
+        <typeAlias type="com.bhome.demo.vo.UserVo" alias="UserVo"/>
     </typeAliases>
 
 

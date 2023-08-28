@@ -12,25 +12,24 @@
             <p>로그인을 해주세요</p>
             <div class="login-form__container">
                 <div class="login-form__wrapper">
-                    <div>
-                        <form class="login-form__form">
-
+                    <form class="login-form__form" th:action="@{/user/login}" th:object="${userLoginDto}" method="post" enctype="application/x-www-form-urlencoded" th:method="post" >
+                        <div>
                             <h4>아이디</h4>
                             <div class="login-form__form__wrapper">
-                                <input class="login-form__input" type="text" id="user_id"  name="user_id" placeholder="Your ID.." value="test1">
+                                <input class="login-form__input" type="text" th:field="*{user_id}">
                             </div>
 
                             <h4>비밀번호</h4>
                             <div class="login-form__form__wrapper">
-                                <input class="login-form__input" type="password" id="user_pass" name="password" placeholder="Your Password.." value="test1">
+                                <input class="login-form__input" type="password" th:field="*{user_pass}">
                             </div>
-                        </form>
-                    </div>
-                    <div>
-                        <input class="login-form__btn" type="button" value="로그인" autofocus="autofocus">
-                        <hr>
-                        <input class="login-form__btn" type="button" value="회원가입">
-                    </div>
+                        </div>
+                        <div>
+                            <button class="login-form__btn" type="submit" autofocus="autofocus">로그인</button>
+                            <hr>
+                            <input class="login-form__btn" type="button" value="회원가입" onclick="location.href='/myInfo/registForm'">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

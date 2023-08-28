@@ -19,7 +19,6 @@ public class BoardController {
     public String registBoard(@PathVariable("boardType")String boardType, @PathVariable("subType") String subType, HttpServletRequest request){
         log.info("boardType = {},subType = {}", boardType,subType);
         HttpSession session = request.getSession();//이부분은 세션에 관련해서 header를 변화 시키기 위해 임시로 넣은 값
-        session.setAttribute("loginFlag", false);
         return "board/registForm";
     }
 

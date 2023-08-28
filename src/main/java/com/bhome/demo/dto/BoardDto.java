@@ -14,7 +14,7 @@ public class BoardDto {
     private int board_pk;
     private String board_title;
     private String board_content;
-    private int board_categoryNum;
+    private int board_category_id;
     private int board_subCategoryNum;
     private int user_pk;
 

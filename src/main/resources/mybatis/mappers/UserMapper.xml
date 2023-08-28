@@ -23,19 +23,44 @@
                );
     </insert>
 
-    <select id="userLogin" parameterType="UserDto" resultType="UserDto">
-            SELECT user_pk,
-                   user_id,
-                   user_pass,
-                   user_name,
-                   user_age,
-                   user_sex,
-                   user_email,
-                   user_intro,
-                   user_signUpdate,
-                   user_withdraw
-            FROM user
-            WHERE user_id =#{user_id} AND user_pass=#{user_pass}
+    <insert id="usersRegistInfo" parameterType="UserRegistDto" useGeneratedKeys="true" keyProperty="user_pk">
+        INSERT INTO users(
+            user_id,
+            user_pass,
+            user_name
+        )
+        VALUES(
+                  #{user_id},
+                  #{user_pass},
+                  #{user_name}
+              );
+    </insert>
+
+    <insert id="usersRegistPhoto" parameterType="UserFileDto">
+        INSERT INTO usersPhoto(
+            userPhoto_oriName,
+            userPhoto_reName,
+            userPhoto_size,
+            users_pk
+        )
+        VALUES(
+                  #{userPhoto_oriName},
+                  #{userPhoto_reName},
+                  #{userPhoto_size},
+                  #{users_pk}
+              );
+    </insert>
+
+    <select id="userLogin" parameterType="UserLoginDto" resultType="UserVo">
+        select u.users_pk,
+               u.user_id,
+               u.user_pass,
+               u.user_name,
+               p.userPhoto_reName
+        from users u
+        Left join usersPhoto p
+        On u.users_pk=p.users_pk
+        where u.user_id =#{user_id} and u.user_pass=#{user_pass}
     </select>
 
     <update id="userUpdateInfo" parameterType="UserDto">
@@ -57,6 +82,7 @@
         where user_pk=#{user_pk}
 
     </update>
+
 
     <!--delete는 추후 구현 예정 , 시간이 지나면 삭제하게끔 withdraw가 일정시간 지난걸 확인후 삭제-->
 </mapper>

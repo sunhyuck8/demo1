@@ -7,9 +7,26 @@ create table apple(
 ) default character set utf8;
 
 insert into apple(name) values('test');
+/*----------------------------------*/
+/*users 테이블생성*/
+create table users(
+                     users_pk int primary key auto_increment
+    , user_id varchar(20)
+    , user_pass varchar(20)
+    , user_name varchar(20)
+) default character set utf8;
+
+-- userPhoto 사용자 첨부사진 테이블
+create table usersPhoto(
+                          userPhoto_oriName varchar(40)
+    , userPhoto_reName varchar(40)
+    , userPhoto_size int
+    , users_pk int
+    , constraint users_photo_pk foreign key (users_pk) references users(users_pk) ON DELETE CASCADE
+) default character set utf8;
 
 
-
+/*----------------------------------*/
 /*user 테이블생성*/
 create table user(
                      user_pk int primary key auto_increment
@@ -93,3 +110,43 @@ create table userPhoto(
     , userPhoto_size int
     , user_pk int
 ) default character set utf8;
+
+
+-- Post 테이블 생성
+create table post(
+    post_pk int primary key auto_increment
+    , post_title varchar(30)
+    , post_content text
+    , post_category_id int
+    , users_pk int
+    , constraint fk_userPk foreign key (users_pk) references users(users_pk)
+) default character set utf8;
+-- Post_Files 테이블 생성
+create table post_files(
+    post_filesPk int primary key auto_increment
+    , post_files_oriName varchar(20)
+    , post_files_reName varchar(20)
+    , post_files_size longtext
+    , post_pk int
+    , constraint fk_postPk foreign key (post_pk) references post(post_pk)
+)default character set  utf8;
+-- Post_Category 테이블생성
+create table post_category(
+    post_category_id int primary key
+    , post_category_name varchar(20)
+    , parent_category_id int
+    , constraint fk_parentPK foreign key (parent_category_id) references post_category(post_category_id)
+)default character set utf8;
+
+INSERT INTO post_category (post_category_id, post_category_name, parent_category_id)
+VALUES
+    (1, 'community', NULL),              -- Big Category
+    (2, 'cs', NULL),              -- Big Category
+    (3, 'q&a', NULL),              -- Big Category
+    (4, 'com1', 1),
+    (5, 'com2', 1),
+    (6, 'com3', 2),
+    (7, 'cs1', 2),
+    (8, 'cs2', 2),
+    (9, 'q&a1', 3),
+    (10, 'q&a2', 3);
