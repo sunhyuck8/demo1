@@ -15,13 +15,17 @@ import javax.servlet.http.HttpSession;
 public class BoardController {
 
     //글등록하는 폼으로 이동
-    @GetMapping("/{boardType}/{subType}/regist")
-    public String registBoard(@PathVariable("boardType")String boardType, @PathVariable("subType") String subType, HttpServletRequest request){
-        log.info("boardType = {},subType = {}", boardType,subType);
-        HttpSession session = request.getSession();//이부분은 세션에 관련해서 header를 변화 시키기 위해 임시로 넣은 값
-        return "board/registForm";
-    }
-
+//    @GetMapping("/{boardType}/regist")
+//    public String registPost(@PathVariable("boardType")String boardType, HttpServletRequest request){
+//        log.info("boardType = {},subType = {}", boardType);
+//        HttpSession session = request.getSession();//이부분은 세션에 관련해서 header를 변화 시키기 위해 임시로 넣은 값
+//        return "post/test_post_registForm";
+//    }
+//    @PostMapping("/{boardType}/{subType}/regist")
+//    public String registBoard(@PathVariable("boardType")String boardType, @PathVariable("subType")String subType, HttpServletRequest request, PostRegistDto postRegistDto){
+//
+//        return "";
+//    }
 
 
 

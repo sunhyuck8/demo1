@@ -20,6 +20,7 @@
           <link rel="stylesheet" th:href="@{/templates/css/custom.css}">
           <link rel="stylesheet" th:href="@{/templates/css/responsive-style.css}">
           <link rel="stylesheet" th:href="@{/templates/css/font-awesome.min.css}">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
           <link rel="stylesheet" th:href="@{/templates/css/lightbox.min.css}">
           <link rel="stylesheet" th:href="@{/templates/css/loaders.css}">
       </head>
@@ -311,7 +312,58 @@
                 height: 200px;
                 border-radius: 70%;
             }
-            /*userRegistForm*/
+            /*userRegistForm끝*/
+            /*postRegistForm*/
+            .regist-post {font-family: Arial, Helvetica, sans-serif;}
+            * {box-sizing: border-box;}
+
+            .regist-post input[type=text], .regist-post select, .regist-post textarea {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-top: 6px;
+                margin-bottom: 16px;
+                resize: vertical;
+            }
+
+            .regist-post input[type=button] {
+                background-color: #04AA6D;
+                color: white;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                float: right;
+                margin-right: 3px;
+                margin-top: 20px;
+            }
+
+            .regist-post input[type=button]:hover {
+                background-color: #45a049;
+            }
+
+            .post-regist {
+                border-radius: 5px;
+                background-color: #f2f2f2;
+                padding: 20px;
+            }
+            .post-regist__content{
+                height: 600px;
+                border: 1px solid black;
+                text-decoration: none;
+                text-align: center;
+                overflow: scroll;
+            }
+            .post-regist__content-img{
+                width: 450px;
+                height: 450px;
+            }
+
+
+
+            /*postRegistForm끝*/
         </style>
 
     <!--===================================================================================================-->
@@ -356,6 +408,7 @@
 
         <link rel="stylesheet" th:href="@{/templates/css/bootstrap.min.css}">
         <!--=================== script ============================-->
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script><!--ajax-->
           <script th:src="@{/templates/js/jquery.min.js}"></script><!--부트 스트랩 및 jquery가 동작하는 기능들이 많음 -->
           <script th:src="@{/templates/js/bootstrap.min.js}"></script><!--하단 쪽에 클릭시 화면이동하는 기능 -->
           <script th:src="@{/templates/js/core.js}"></script> <!--사이트오픈시 보여주는 역할-->
@@ -379,7 +432,22 @@
                 list[activePage].classList.add('active');  //3 .하이라이트 넣어주기
             }
 
-            //registForm
+            //user--registForm
+
+            function registContent(){
+            setContent();
+            $("form").attr({
+                action:"/col2/boardContentRegist",
+                method:"post",
+                enctype:"multipart/form-data"
+            });
+             $("form").submit();
+            }
+
+             function show_post_list(boardType) {
+                location.href="/"+boardType;
+            }
+
             window.addEventListener('load', function() {
 
                 const container = document.querySelector('.user-regist__photo');
@@ -406,15 +474,118 @@
                 function isImage(file){			//파일이 들어 왔을때 file에 'image'의 요소가 없을 시 -1, 있을 땐 0이기 때문에 '>='를 통해 0 보다 크면 true를 반환
                     return file.type.indexOf('image') >= 0;
                 }
-
-
-
             });
+            //user--registForm 끝
+
+            //post--registForm
+            var level = 0;//boundary를 위한 전역변수
+
+            window.addEventListener('load',function(){
+                let fileInput= document.getElementsByClassName('fileInputList');
+                let frame = document.querySelector('.post-regist__content');
+
+                fileInput[fileInput.length-1].addEventListener('input',function(){
+                    if(!isImage(fileInput[fileInput.length-1].files[0])) {
+                        alert('Image 파일만 업로드 할 수 있습니다.');
+                        fileInput[fileInput.length-1].value='';
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.addEventListener('load', function(){
+                        const img = document.createElement('IMG');
+                        img.classList.add('post-regist__content-img');
+                        img.src = reader.result;
+                        const div = document.createElement('div');
+                        // div.style.background='blue';
+                        div.contentEditable=false;
+                        div.insertAdjacentElement('beforeend', img);
+                        frame.insertAdjacentElement('beforeend', div);
+                        frame.innerHTML += "<p> 　";		// 추가
+                    });
+                    reader.readAsDataURL(fileInput[fileInput.length-1].files[0]);
+
+                    addButtonFileInput();
+                    divideLevel();
+                });
+
+            });//windowload 끝
 
 
-            function btnclele1(){
-                console.log("누름");
+
+            function isImage(file){
+                return file.type.indexOf('image') >= 0;
             }
+
+            /* 파일 추가 나타내기 */
+            function addButtonFileInput() {
+                const str = '<br><input type="file" id="inputfiles" class="fileInputList" name=files>';
+                $(".file-container").append(str);
+
+                initInput();
+            }
+
+            /* input 초기화 */
+            function initInput() {
+                let fileInput= document.getElementsByClassName('fileInputList');
+                const frame = document.querySelector('.post-regist__content');
+
+                for(let i=0;i<fileInput.length;i++){
+
+                    fileInput[i].addEventListener('input',function(){
+                        if(!isImage(fileInput[i].files[0])) {
+                            alert('Image 파일만 업로드 할 수 있습니다.');
+                            return;
+                        }
+                        frame.innerHTML += "<p>";		// 추가
+                        const reader = new FileReader();
+                        reader.addEventListener('load', function(){
+                            const img = document.createElement('IMG');
+                            img.classList.add('post-regist__content-img');
+                            img.src = reader.result;
+                            const div = document.createElement('div');
+                            // div.style.background='blue';
+                            div.contentEditable=false;
+                            div.insertAdjacentElement('beforeend', img);
+                            frame.insertAdjacentElement('beforeend', div);
+                            frame.innerHTML += "<p> 　";		// 추가
+                        });
+                        reader.readAsDataURL(fileInput[i].files[0]);
+                        addButtonFileInput();
+                    });
+                }
+                divideLevel();
+            }
+
+
+
+            function setContent() {
+                const frame = document.querySelector('.post-regist__content');
+                const frameChild = frame.childNodes;
+                var innerText="";
+                for(let i =0;i<frameChild.length;i++){
+                    innerText +=frameChild[i].textContent;
+                }
+                $("input[name=content]").attr("value",innerText);
+                console.log($("input[name=content]").val());
+
+                //input마지막요소 제거하기
+                var inputList  = document.getElementsByClassName('fileInputList');
+                inputList[inputList.length-1].remove();
+            }
+
+
+
+            function divideLevel() {
+                const frame = document.querySelector('.post-regist__content');
+                const str = "<div style='display: none'><p>"+"--boundary"+level+"</p></div>";
+                frame.innerHTML += str;
+                level++;
+            }
+
+            //post--registForm끝
+
+
         </script>
 </body>
 </html>

@@ -15,6 +15,7 @@
         <typeAlias type="com.bhome.demo.dto.UserRegistDto" alias="UserRegistDto"/>
         <typeAlias type="com.bhome.demo.dto.UserFileDto" alias="UserFileDto"/>
         <typeAlias type="com.bhome.demo.dto.UserLoginDto" alias="UserLoginDto"/>
+        <typeAlias type="com.bhome.demo.dto.PostRegistDto" alias="PostRegistDto"/>
 <!--    Vo    -->
         <typeAlias type="com.bhome.demo.vo.UserVo" alias="UserVo"/>
     </typeAliases>

@@ -18,34 +18,28 @@
                     <h4>게시판</h4>
                     <select>
                         <!--url로 categroy 가져옴-->
-                        <option value="subtype1">자동선택</option>
-                        <option value="subtype2">subtype1</option>
-                        <option value="subtype3">subtype2</option>
-                        <option value="subtype4">subtype3</option>
-                        <option value="subtype5">subtype4</option>
+                        <option th:value="${boardType}" th:text="${boardType}" ></option>
                     </select>
 
                     <h4>카테고리</h4>
                     <select id="selectBox">
-                        <!--category에서 subcategory들을 list로 가져옴-->
-                        <option value="subtype1">선택</option>
-                        <option value="subtype2">subtype1</option>
-                        <option value="subtype3">subtype2</option>
-                        <option value="subtype4">subtype3</option>
-                        <option value="subtype5">subtype4</option>
+                        <option value="">선택</option>
+                        <option th:each="subList : ${subCategoryList}" th:value="${subList}" th:text="${subList}"></option>
                     </select>
 
                     <!--기능 추가 예정-->
-                    <div style="background: #1f7e9a">
+                    <div>
                         <ul class="myinfo_font_ele">
                             <li>
-                                <button type="button" onclick="btnclele1()">
-                                    <span>요소1</span>
-                                </button>
+                                <a href="#" >
+                                    <i class="fa-solid fa-user-secret">
+                                        예정
+                                    </i>
+                                </a>
                             </li>
                         </ul>
                     </div>
-
+                    <br>
 
                     <h4>내용</h4>
                     <div contenteditable="true"  class="post-regist__content" id="contentman">
@@ -63,8 +57,11 @@
                     </div>
                 </form>
                 <div><!-- 버튼 -->
-                    <input type="button" value="목록" onclick="post_list()">
+                    <input type="button" th:data-boardType="${boardType}"
+                           th:onclick="show_post_list(this.getAttribute('data-boardType'))" >목록</input>
+
                     <input type="button" value="글등록" onclick="registContent()">
+
                 </div>
             </div>
         </div>
