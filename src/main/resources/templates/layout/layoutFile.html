@@ -434,19 +434,17 @@
 
             //user--registForm
 
-            function registContent(){
-            setContent();
+            function postRegist(boardType){
+            finalizePost();
             $("form").attr({
-                action:"/col2/boardContentRegist",
+                action:"/"+boardType+"/regist",
                 method:"post",
                 enctype:"multipart/form-data"
             });
              $("form").submit();
             }
 
-             function show_post_list(boardType) {
-                location.href="/"+boardType;
-            }
+
 
             window.addEventListener('load', function() {
 
@@ -497,7 +495,6 @@
                         img.classList.add('post-regist__content-img');
                         img.src = reader.result;
                         const div = document.createElement('div');
-                        // div.style.background='blue';
                         div.contentEditable=false;
                         div.insertAdjacentElement('beforeend', img);
                         frame.insertAdjacentElement('beforeend', div);
@@ -519,7 +516,7 @@
 
             /* 파일 추가 나타내기 */
             function addButtonFileInput() {
-                const str = '<br><input type="file" id="inputfiles" class="fileInputList" name=files>';
+                const str = '<br><input type="file" id="inputfiles" class="fileInputList" name=post_files>';
                 $(".file-container").append(str);
 
                 initInput();
@@ -559,15 +556,15 @@
 
 
 
-            function setContent() {
-                const frame = document.querySelector('.post-regist__content');
-                const frameChild = frame.childNodes;
-                var innerText="";
-                for(let i =0;i<frameChild.length;i++){
-                    innerText +=frameChild[i].textContent;
-                }
-                $("input[name=content]").attr("value",innerText);
-                console.log($("input[name=content]").val());
+            function finalizePost() {
+                const content_container = document.querySelector('.post-regist__content');
+                // const frameChild = frame.childNodes;
+                var innerText=content_container.innerText;
+                // for(let i =0;i<frameChild.length;i++){
+                //     innerText +=frameChild[i].textContent;
+                // }
+                $("input[name=post_content]").attr("value",innerText);
+                // console.log($("input[name=content]").val());
 
                 //input마지막요소 제거하기
                 var inputList  = document.getElementsByClassName('fileInputList');

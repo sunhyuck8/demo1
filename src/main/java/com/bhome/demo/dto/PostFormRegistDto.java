@@ -10,11 +10,11 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostRegistDto {
+public class PostFormRegistDto {
     private int post_pk;
     private String post_title;
     private String post_content;
     private int users_pk;
-    private int post_category_id;
+    private String post_category_name;
     private List<MultipartFile> post_files;
 }

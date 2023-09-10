@@ -10,11 +10,11 @@
             <!-- Main -->
             <h3>글 쓰기</h3>
             <div class="post-regist">
-                <form>
+                <form th:action="@{/${boardType}/regist}" th:object="${postFormRegistDto}" method="post" enctype="multipart/form-data">
                     <h4>제목</h4>
                     <!--session에서 writer를 가져옴-->
-                    <input type="hidden" name= "writer" value="<%=member.getName()%>">
-                    <input type="text"	id="fname" name="title" placeholder="Title..." value="">
+                    <input type="hidden" name= "users_pk" th:value="${session.user.users_pk}">
+                    <input type="text"	th:field="*{post_title}" placeholder="Title..." value="">
                     <h4>게시판</h4>
                     <select>
                         <!--url로 categroy 가져옴-->
@@ -22,9 +22,9 @@
                     </select>
 
                     <h4>카테고리</h4>
-                    <select id="selectBox">
+                    <select id="selectBox" th:field="*{post_category_name}">
                         <option value="">선택</option>
-                        <option th:each="subList : ${subCategoryList}" th:value="${subList}" th:text="${subList}"></option>
+                        <option th:each="subList : ${subCategoryList}" th:value="${subList}" th:text="${subList}" ></option>
                     </select>
 
                     <!--기능 추가 예정-->
@@ -42,27 +42,24 @@
                     <br>
 
                     <h4>내용</h4>
-                    <div contenteditable="true"  class="post-regist__content" id="contentman">
-                        <input type="hidden" name="type" value="2">
-                        <input type="hidden" name="content">
-                        <p style="display: none">안녕안녕</p>
-                        <div>
-                            <p style="display: none">안녕안녕</p>
-                        </div>
+                    <div contenteditable="true"  class="post-regist__content" >
+                        <p style="display: none">디스플레이none</p>
+                        <input type="hidden" th:field="*{post_content}">
                     </div>
                     <div>
                         <div class="file-container"><!-- 파일첨부 -->
-                            <input type="file" class="fileInputList" name=files>
+                            <input type="file" class="fileInputList" name=post_files>
                         </div>
                     </div>
-                </form>
+
                 <div><!-- 버튼 -->
                     <input type="button" th:data-boardType="${boardType}"
-                           th:onclick="show_post_list(this.getAttribute('data-boardType'))" >목록</input>
-
-                    <input type="button" value="글등록" onclick="registContent()">
-
+                           th:onclick="show_post_list(this.getAttribute('data-boardType'))" th:value="목록"/>
+                    <input type="button" value="글등록"
+                           th:data-boardType="${boardType}"
+                           th:onclick="postRegist(this.getAttribute('data-boardType'))"/>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -74,414 +71,4 @@
 
 
 
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--      <head>-->
-<!--      <meta charset="utf-8">-->
-<!--      <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-<!--      <meta name="viewport" content="width=device-width, initial-scale=1">-->
-<!--      <meta name="description" content="">-->
-<!--      <meta name="author" content="">-->
-<!--      <title>River Bootstrap 4 Template by Grafreez</title>-->
 
-<!--      &lt;!&ndash;Bootstrap core CSS&ndash;&gt;-->
-<!--      <link href="css/bootstrap.min.css" rel="stylesheet"> -->
-
-<!--      &lt;!&ndash; HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries &ndash;&gt;-->
-<!--      &lt;!&ndash;[if lt IE 9]>-->
-<!--      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
-<!--      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
-<!--    <![endif]&ndash;&gt;-->
-
-<!--      &lt;!&ndash; Custom styles for this template &ndash;&gt;-->
-
-<!--      <link href="css/custom.css" rel="stylesheet">-->
-<!--      <link href="css/responsive-style.css" rel="stylesheet">  -->
-<!--      <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />-->
-<!--      <link href="css/lightbox.min.css" rel="stylesheet">-->
-<!--      <link rel="stylesheet" type="text/css" href="css/loaders.css"/>-->
-<!--      <style></style>-->
-<!--      </head>-->
-
-<!--      <body>-->
-
-
-<!--&lt;!&ndash; Header &ndash;&gt;-->
-<!-- <header>-->
-<!--        <div class="small-top">-->
-<!--    <div class="container">-->
-<!--            <div class="col-lg-4 date-sec hidden-sm-down">-->
-<!--        <div id="Date"></div>-->
-<!--      </div>-->
-<!--            <div class="col-lg-3 offset-lg-5">-->
-<!--        <div class="social-icon"> <a target="_blank" href="#" class=" fa fa-facebook"></a> <a target="_blank" href="#" class=" fa fa-twitter"></a> <a target="_blank" href="#" class=" fa fa-google-plus"></a> <a target="_blank" href="#" class=" fa fa-linkedin"></a> <a target="_blank" href="#" class=" fa fa-youtube"></a> <a target="_blank" href="#" class=" fa fa-vimeo-square"></a> </div>-->
-<!--      </div>-->
-<!--          </div>-->
-<!--  </div>-->
-<!--        <div class="top-head left">-->
-<!--    <div class="container">-->
-<!--            <div class="row">-->
-<!--        <div class="col-md-6 col-lg-4">-->
-<!--                <h1>Grafreez News<small>Get the latest News</small></h1>-->
-<!--              </div>-->
-<!--        <div class="col-md-6 col-lg-5 offset-lg-3 admin-bar hidden-sm-down">-->
-<!--                <nav class="nav nav-inline"> <a href="#" class="nav-link"><span class="ping"></span><i class="fa fa-envelope-o"></i></a> <a href="#" class="nav-link"><i class="fa fa-bell-o"></i></a> <a href="#" class="nav-link">Bruce Wayne <img class="img-fluid img-circle" src="img/admin-bg.jpg"></a> </nav>-->
-<!--              </div>-->
-<!--      </div>-->
-<!--          </div>-->
-<!--  </div>-->
-<!--      </header> -->
-<!--&lt;!&ndash; &#45;&#45;Header &ndash;&gt;-->
-<!--&lt;!&ndash;top navi &ndash;&gt;-->
-<!-- <nav class="navbar top-nav">-->
-<!--        <div class="container">-->
-<!--    <button class="navbar-toggler hidden-lg-up " type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation"> &#9776; </button>-->
-<!--    <div class="collapse navbar-toggleable-md" id="exCollapsingNavbar2"> <a class="navbar-brand" href="#">Responsive navbar</a>-->
-<!--            <ul class="nav navbar-nav ">-->
-<!--        <li class="nav-item active"> <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> </li>-->
-<!--        <li class="nav-item"> <a class="nav-link" href="#">World</a> </li>-->
-<!--        <li class="nav-item"> <a class="nav-link" href="#">Politics</a> </li>-->
-<!--        <li class="nav-item"> <a class="nav-link" href="#">Business</a> </li>-->
-<!--        <li class="nav-item"> <a class="nav-link" href="#">Science</a> </li>-->
-<!--        <li class="nav-item"> <a class="nav-link" href="#">Sports</a> </li>-->
-<!--        <li class="nav-item"> <a class="nav-link" href="#">Tech</a> </li>-->
-<!--        <li class="nav-item"> <a class="nav-link" href="#">Travel</a> </li>-->
-<!--        <li class="nav-item"> <a class="nav-link" href="#">Health</a> </li>-->
-<!--      </ul>-->
-<!--            <form class="pull-xs-right">-->
-<!--        <div class="search">-->
-<!--                <input type="text" class="form-control" maxlength="64" placeholder="Search" />-->
-<!--                <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>-->
-<!--              </div>-->
-<!--      </form>-->
-<!--          </div>-->
-<!--  </div>-->
-<!--      </nav> -->
-<!--&lt;!&ndash; &#45;&#45;top navi &ndash;&gt;-->
-
-<!--&lt;!&ndash;========================================================================================================================================-->
-<!--==========================================================================================================================================&ndash;&gt;-->
-
-<!--<style>-->
-
-<!--    .regist-post {font-family: Arial, Helvetica, sans-serif;}-->
-<!--    * {box-sizing: border-box;}-->
-
-<!--    .regist-post input[type=text], .regist-post select, .regist-post textarea {-->
-<!--        width: 100%;-->
-<!--        padding: 12px;-->
-<!--        border: 1px solid #ccc;-->
-<!--        border-radius: 4px;-->
-<!--        box-sizing: border-box;-->
-<!--        margin-top: 6px;-->
-<!--        margin-bottom: 16px;-->
-<!--        resize: vertical;-->
-<!--    }-->
-
-<!--    .regist-post input[type=button] {-->
-<!--        background-color: #04AA6D;-->
-<!--        color: white;-->
-<!--        padding: 12px 20px;-->
-<!--        border: none;-->
-<!--        border-radius: 4px;-->
-<!--        cursor: pointer;-->
-<!--    }-->
-
-<!--    .regist-post input[type=button]:hover {-->
-<!--        background-color: #45a049;-->
-<!--    }-->
-
-<!--    .post-regist {-->
-<!--        border-radius: 5px;-->
-<!--        background-color: #f2f2f2;-->
-<!--        padding: 20px;-->
-<!--    }-->
-<!--    .post-regist__content{-->
-<!--        height: 600px;-->
-<!--        border: 1px solid black;-->
-<!--        text-decoration: none;-->
-<!--        text-align: center;-->
-<!--        overflow: scroll;-->
-<!--    }-->
-<!--    .post-regist__content-img{-->
-<!--        width: 450px;-->
-<!--        height: 450px;-->
-<!--    }-->
-<!--</style>-->
-
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>-->
-<!--<script>-->
-<!--    // function registContent(){-->
-<!--    //     setContent();-->
-<!--    //     $("form").attr({-->
-<!--    //         action:"/col2/boardContentRegist",-->
-<!--    //         method:"post",-->
-<!--    //         enctype:"multipart/form-data"-->
-<!--    //     });-->
-<!--    //     $("form").submit();-->
-<!--    // }-->
-
-<!--    // function post_list() {-->
-<!--    //     location.href="/col2";-->
-<!--    // }-->
-
-
-
-
-<!--    /* 파일 다중 업로드 처리  */-->
-<!--    window.addEventListener('load',function(){-->
-<!--        let fileInput= document.getElementsByClassName('fileInputList');-->
-<!--        let frame = document.querySelector('.post-regist__content');-->
-
-<!--        fileInput[fileInput.length-1].addEventListener('input',function(){-->
-<!--            console.log("들");-->
-<!--            if(!isImage(fileInput[fileInput.length-1].files[0])) {-->
-<!--                alert('Image 파일만 업로드 할 수 있습니다.');-->
-<!--                fileInput[fileInput.length-1].value='';-->
-<!--                return;-->
-<!--            }-->
-
-<!--            const reader = new FileReader();-->
-<!--            reader.addEventListener('load', function(){-->
-<!--                const img = document.createElement('IMG');-->
-<!--                img.classList.add('post-regist__content-img');-->
-<!--                img.src = reader.result;-->
-<!--                const div = document.createElement('div');-->
-<!--                // div.style.background='blue';-->
-<!--                div.contentEditable=false;-->
-<!--                div.insertAdjacentElement('beforeend', img);-->
-<!--                frame.insertAdjacentElement('beforeend', div);-->
-<!--                frame.innerHTML += "<p> 　";		// 추가-->
-<!--            });-->
-<!--            reader.readAsDataURL(fileInput[fileInput.length-1].files[0]);-->
-
-<!--            addButtonFileInput();-->
-<!--            // divideLevel();-->
-<!--        });-->
-
-<!--    });//windowload 끝-->
-
-
-
-<!--    function isImage(file){-->
-<!--        return file.type.indexOf('image') >= 0;-->
-<!--    }-->
-
-<!--    /* 파일 추가 나타내기 */-->
-<!--    function addButtonFileInput() {-->
-<!--        const str = '<br><input type="file" id="inputfiles" class="fileInputList" name=files>';-->
-<!--        $(".file-container").append(str);-->
-
-<!--        initInput();-->
-<!--    }-->
-
-<!--    /* input 초기화 */-->
-<!--    function initInput() {-->
-<!--        let fileInput= document.getElementsByClassName('fileInputList');-->
-<!--        const frame = document.querySelector('.post-regist__content');-->
-
-<!--        for(let i=0;i<fileInput.length;i++){-->
-
-<!--            fileInput[i].addEventListener('input',function(){-->
-<!--                if(!isImage(fileInput[i].files[0])) {-->
-<!--                    alert('Image 파일만 업로드 할 수 있습니다.');-->
-<!--                    return;-->
-<!--                }-->
-<!--                frame.innerHTML += "<p>";		// 추가-->
-<!--                const reader = new FileReader();-->
-<!--                reader.addEventListener('load', function(){-->
-<!--                    const img = document.createElement('IMG');-->
-<!--                    img.classList.add('post-regist__content-img');-->
-<!--                    img.src = reader.result;-->
-<!--                    const div = document.createElement('div');-->
-<!--                    // div.style.background='blue';-->
-<!--                    div.contentEditable=false;-->
-<!--                    div.insertAdjacentElement('beforeend', img);-->
-<!--                    frame.insertAdjacentElement('beforeend', div);-->
-<!--                    frame.innerHTML += "<p> 　";		// 추가-->
-<!--                });-->
-<!--                reader.readAsDataURL(fileInput[i].files[0]);-->
-<!--                addButtonFileInput();-->
-<!--            });-->
-<!--        }-->
-<!--        divideLevel();-->
-<!--    }-->
-
-
-
-<!--    function setContent() {-->
-<!--        const frame = document.querySelector('.post-regist__content');-->
-<!--        const frameChild = frame.childNodes;-->
-<!--        var innerText="";-->
-<!--        for(let i =0;i<frameChild.length;i++){-->
-<!--            innerText +=frameChild[i].textContent;-->
-<!--        }-->
-<!--        $("input[name=content]").attr("value",innerText);-->
-<!--        console.log($("input[name=content]").val());-->
-
-<!--        //input마지막요소 제거하기-->
-<!--        var inputList  = document.getElementsByClassName('fileInputList');-->
-<!--        inputList[inputList.length-1].remove();-->
-<!--    }-->
-
-
-
-<!--    function divideLevel() {-->
-<!--        const frame = document.querySelector('.post-regist__content');-->
-<!--        const str = "<div style='display: none'><p>"+"&#45;&#45;boundary"+level+"</p></div>";-->
-<!--        frame.innerHTML += str;-->
-<!--        level++;-->
-<!--    }-->
-
-
-<!--</script>-->
-
-
-
-
-<!--<section>-->
-<!--    <div class="container">-->
-<!--        <div class="regist-post">-->
-<!--                         &lt;!&ndash; Main &ndash;&gt;-->
-<!--                        <h3>글 쓰기</h3>-->
-<!--                        <div class="post-regist">-->
-<!--                            <form>-->
-<!--                                <h4>제목</h4>-->
-<!--                                &lt;!&ndash;session에서 writer를 가져옴&ndash;&gt;-->
-<!--                                <input type="hidden" name= "writer" value="<%=member.getName()%>">-->
-<!--                                <input type="text"	id="fname" name="title" placeholder="Title..." value="">-->
-<!--                                <h4>게시판</h4>-->
-<!--                                <select>-->
-<!--                                    &lt;!&ndash;url로 categroy 가져옴&ndash;&gt;-->
-<!--                                    <option value="subtype1">자동선택</option>-->
-<!--                                    <option value="subtype2">subtype1</option>-->
-<!--                                    <option value="subtype3">subtype2</option>-->
-<!--                                    <option value="subtype4">subtype3</option>-->
-<!--                                    <option value="subtype5">subtype4</option>-->
-<!--                                </select>-->
-
-<!--                                <h4>카테고리</h4>-->
-<!--                                <select id="selectBox">-->
-<!--                                    &lt;!&ndash;category에서 subcategory들을 list로 가져옴&ndash;&gt;-->
-<!--                                    <option value="subtype1">선택</option>-->
-<!--                                    <option value="subtype2">subtype1</option>-->
-<!--                                    <option value="subtype3">subtype2</option>-->
-<!--                                    <option value="subtype4">subtype3</option>-->
-<!--                                    <option value="subtype5">subtype4</option>-->
-<!--                                </select>-->
-
-<!--                                &lt;!&ndash;기능 추가 예정&ndash;&gt;-->
-<!--                                <div style="background: #1f7e9a">-->
-<!--                                    <ul class="myinfo_font_ele">-->
-<!--                                        <li>-->
-<!--                                            <button type="button" onclick="btnclele1()">-->
-<!--                                                <span>요소1</span>-->
-<!--                                            </button>-->
-<!--                                        </li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-
-
-<!--                                <h4>내용</h4>-->
-<!--                                <div contenteditable="true"  class="post-regist__content" id="contentman">-->
-<!--                                    <input type="hidden" name="type" value="2">-->
-<!--                                    <input type="hidden" name="content">-->
-<!--                                    <p style="display: none">안녕안녕</p>-->
-<!--                                    <div>-->
-<!--                                        <p style="display: none">안녕안녕</p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div id="file-List">-->
-<!--                                    <div class="file-container">&lt;!&ndash; 파일첨부 &ndash;&gt;-->
-<!--                                        <input type="file" class="fileInputList" name=files>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </form>-->
-<!--                            <div>&lt;!&ndash; 버튼 &ndash;&gt;-->
-<!--                                <input type="button" value="목록" onclick="post_list()">-->
-<!--                                <input type="button" value="글등록" onclick="registContent()">-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
-
-
-
-
-<!--&lt;!&ndash;========================================================================================================================================-->
-<!--==========================================================================================================================================&ndash;&gt;-->
-
-<!--&lt;!&ndash; footer  &ndash;&gt;-->
-<!--<footer>-->
-<!--        <div class="container">-->
-<!--    <div class="row">-->
-<!--            <div class="col-lg-4 col-md-12">-->
-<!--        <h6 class="heading-footer">ABOUT US</h6>-->
-<!--        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.</p>-->
-<!--        <p><i class="fa fa-phone"></i> <span>Call Us :</span> +91 9999 878 398</p>-->
-<!--        <p><i class="fa fa-envelope"></i> <span>Send Email :</span> info@webenlance.com</p>-->
-<!--      </div>-->
-<!--            <div class="col-lg-2 col-md-4">-->
-<!--        <h6 class="heading-footer">QUICK LINKS</h6>-->
-<!--        <ul class="footer-ul">-->
-<!--                <li><a href="#"> Career</a></li>-->
-<!--                <li><a href="#"> Privacy Policy</a></li>-->
-<!--                <li><a href="#"> Terms & Conditions</a></li>-->
-<!--                <li><a href="#"> Client Gateway</a></li>-->
-<!--                <li><a href="#"> Ranking</a></li>-->
-<!--                <li><a href="#"> Case Studies</a></li>-->
-<!--              </ul>-->
-<!--      </div>-->
-<!--            <div class="col-lg-4 col-md-4">-->
-<!--        <h6 class="heading-footer">LATEST NEWS</h6>-->
-<!--        <div class="post">-->
-<!--                <p>Key Republicans sign letter warning against candidate<span>August 3,2015</span></p>-->
-<!--                <p>Obamacare Appears to Be Making People Healthie <span>August 3,2015</span></p>-->
-<!--                <p>Syria war: Why the battle for Aleppo matters<span>August 3,2015</span></p>-->
-<!--              </div>-->
-<!--      </div>-->
-<!--            <div class="col-lg-2 col-md-4 social-icons">-->
-<!--        <h6 class="heading-footer">FOLLOW</h6>-->
-<!--        <ul class="footer-ul">-->
-<!--                <li><a href="#"><i class=" fa fa-facebook"></i> Facebook</a></li>-->
-<!--                <li><a href="#"><i class=" fa fa-twitter"></i> Twitter</a></li>-->
-<!--                <li><a href="#"><i class=" fa fa-google-plus"></i> Google+</a></li>-->
-<!--                <li><a href="#"><i class=" fa fa-linkedin"></i> Linkedin</a></li>-->
-<!--              </ul>-->
-<!--      </div>-->
-<!--          </div>-->
-<!--    </div>-->
-<!--      </footer>-->
-<!--    &lt;!&ndash; &#45;&#45;footer &ndash;&gt;-->
-<!--    -->
-<!--    &lt;!&ndash;footer2&ndash;&gt;-->
-<!--    <div class="copyright">-->
-<!--        <div class="container">-->
-<!--    <div class="col-lg-6 col-md-4">-->
-<!--            <p>Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>-->
-<!--    </p>-->
-<!--          </div>-->
-<!--    <div class="col-lg-6 col-md-8">-->
-<!--            <ul class="bottom_ul">-->
-<!--        <li><a href="#">About us</a></li>-->
-<!--        <li><a href="#">Blog</a></li>-->
-<!--        <li><a href="#">Faq's</a></li>-->
-<!--        <li><a href="#">Contact us</a></li>-->
-<!--        <li><a href="#">Site Map</a></li>-->
-<!--      </ul>-->
-<!--          </div>-->
-<!--    </div>-->
-<!--      </div>-->
-<!--    &lt;!&ndash; &#45;&#45;footer2&ndash;&gt;-->
-<!--      -->
-<!--&lt;!&ndash; Bootstrap core JavaScript-->
-<!--    ================================================== &ndash;&gt; -->
-<!--&lt;!&ndash; Placed at the end of the document so the pages load faster &ndash;&gt; -->
-<!--<script src="js/jquery.min.js"></script> -->
-<!--<script src="js/bootstrap.min.js"></script> -->
-<!--<script src="js/core.js"></script> -->
-<!--<script src="js/lightbox-plus-jquery.min.js"></script> -->
-
-<!--</body>-->
-<!--</html>-->
