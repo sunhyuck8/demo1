@@ -558,13 +558,12 @@
 
             function finalizePost() {
                 const content_container = document.querySelector('.post-regist__content');
-                // const frameChild = frame.childNodes;
-                var innerText=content_container.innerText;
-                // for(let i =0;i<frameChild.length;i++){
-                //     innerText +=frameChild[i].textContent;
-                // }
+                const content_child = content_container.childNodes;
+                var innerText="";
+                for(let i =0;i<content_child.length;i++){
+                    innerText +=content_child[i].textContent;
+                }
                 $("input[name=post_content]").attr("value",innerText);
-                // console.log($("input[name=content]").val());
 
                 //input마지막요소 제거하기
                 var inputList  = document.getElementsByClassName('fileInputList');

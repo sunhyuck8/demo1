@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/layoutFile :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>글쓰기</title>
+</head>
+<body>
+<section>
+    <div class="container">
+        <div class="regist-post">
+            <!-- Main -->
+            <h3>글 쓰기</h3>
+            <div class="post-regist">
+                <form th:action="@{/${boardType}/regist}" th:object="${postFormRegistDto}" method="post" enctype="multipart/form-data">
+                    <h4>제목</h4>
+                    <!--session에서 writer를 가져옴-->
+                    <input type="hidden" name= "users_pk" th:value="${session.user.users_pk}">
+                    <input type="text"	th:field="*{post_title}" placeholder="Title..." value="">
+                    <h4>게시판</h4>
+                    <select>
+                        <!--url로 categroy 가져옴-->
+                        <option th:value="${boardType}" th:text="${boardType}" ></option>
+                    </select>
+
+                    <h4>카테고리</h4>
+                    <select id="selectBox" th:field="*{post_category_name}">
+                        <option value="">선택</option>
+                        <option th:each="subList : ${subCategoryList}" th:value="${subList}" th:text="${subList}" ></option>
+                    </select>
+
+                    <!--기능 추가 예정-->
+                    <div>
+                        <ul class="myinfo_font_ele">
+                            <li>
+                                <a href="#" >
+                                    <i class="fa-solid fa-user-secret">
+                                        예정
+                                    </i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <br>
+
+                    <h4>내용</h4>
+                    <div contenteditable="true"  class="post-regist__content" >
+                        <p style="display: none">디스플레이none</p>
+                        <input type="hidden" th:field="*{post_content}">
+                    </div>
+                    <div>
+                        <div class="file-container"><!-- 파일첨부 -->
+                            <input type="file" class="fileInputList" name=post_files>
+                        </div>
+                    </div>
+
+                <div><!-- 버튼 -->
+                    <input type="button" th:data-boardType="${boardType}"
+                           th:onclick="show_post_list(this.getAttribute('data-boardType'))" th:value="목록"/>
+                    <input type="button" value="글등록"
+                           th:data-boardType="${boardType}"
+                           th:onclick="postRegist(this.getAttribute('data-boardType'))"/>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
+
+
+
+
+
+

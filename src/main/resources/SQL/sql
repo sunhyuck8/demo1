@@ -119,8 +119,20 @@ create table post(
     , post_content text
     , post_category_id int
     , users_pk int
+    , post_createdAt timestamp default CURRENT_TIMESTAMP
     , constraint fk_userPk foreign key (users_pk) references users(users_pk)
 ) default character set utf8;
+
+--  추가) 외래키 삭제후 테이블 변경, 그리고 다시 외래키 추가
+#     DROP FOREIGN KEY fk_userPk;
+#
+#     ALTER TABLE post
+#     ADD current_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+#
+#     ALTER TABLE post
+#     ADD CONSTRAINT fk_userPk FOREIGN KEY (users_pk) REFERENCES users(users_pk);
+
+
 -- Post_Files 테이블 생성
 create table post_files(
     post_filesPk int primary key auto_increment

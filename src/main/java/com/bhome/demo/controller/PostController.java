@@ -46,5 +46,19 @@ public class PostController {
 
         return "redirect:/"+boardType;
     }
+//    @GetMapping()
+//    public String showDetailPost(){
+//        return "";
+//    }
+//    @GetMapping()
+//    public String showListPost(){
+//        return "";
+//    }
+//    @GetMapping()
+//    public String showListPostByItem(){
+//        return "";
+//    }
+
+
 
 }
