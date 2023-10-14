@@ -503,7 +503,7 @@
                     reader.readAsDataURL(fileInput[fileInput.length-1].files[0]);
 
                     addButtonFileInput();
-                    divideLevel();
+                    // divideLevel();
                 });
 
             });//windowload 끝
@@ -534,14 +534,13 @@
                             alert('Image 파일만 업로드 할 수 있습니다.');
                             return;
                         }
-                        frame.innerHTML += "<p>";		// 추가
+                        frame.innerHTML += "\n 　";		// 추가
                         const reader = new FileReader();
                         reader.addEventListener('load', function(){
                             const img = document.createElement('IMG');
                             img.classList.add('post-regist__content-img');
                             img.src = reader.result;
                             const div = document.createElement('div');
-                            // div.style.background='blue';
                             div.contentEditable=false;
                             div.insertAdjacentElement('beforeend', img);
                             frame.insertAdjacentElement('beforeend', div);
@@ -551,18 +550,17 @@
                         addButtonFileInput();
                     });
                 }
-                divideLevel();
+                // divideLevel();
             }
 
 
 
             function finalizePost() {
                 const content_container = document.querySelector('.post-regist__content');
-                const content_child = content_container.childNodes;
-                var innerText="";
-                for(let i =0;i<content_child.length;i++){
-                    innerText +=content_child[i].textContent;
-                }
+                var innerText = content_container.innerText;
+                innerText = innerText.replaceAll('\n','--Et--').replaceAll('　','--Pt--');
+
+
                 $("input[name=post_content]").attr("value",innerText);
 
                 //input마지막요소 제거하기
@@ -579,7 +577,23 @@
                 level++;
             }
 
+            // 비동기 ajax부분 ===================================================================
+
+            const postCategory_selectBox =  document.getElementById('selectBox');
+            postCategory_selectBox.addEventListener("change", function (){
+                convertSelectboxValue();
+            });
+            function convertSelectboxValue(){
+
+                console.log("selectBox 값 변경 ");
+
+
+            }
+
+
             //post--registForm끝
+
+
 
 
         </script>

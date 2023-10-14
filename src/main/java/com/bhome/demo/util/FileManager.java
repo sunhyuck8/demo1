@@ -35,8 +35,21 @@ public class FileManager {
         String fileName = System.currentTimeMillis()+"."+getExt(file.getOriginalFilename());
         Path path = Paths.get(staticFileDir, fileName);
         file.transferTo(path.toFile());
-
     }
+
+    //파일들 저장하기
+    public void saveFills(List<MultipartFile> files) throws IOException {
+        int index = 0;
+        for(MultipartFile file : files){
+            String fileName = System.currentTimeMillis()+"."+getExt(file.getOriginalFilename()+index);
+            Path path = Paths.get(staticFileDir, fileName);
+            file.transferTo(path.toFile());
+            index++;
+        }
+    }
+
+
+
     //테스트 메서드
     public String saveFileAndReturnFileName ( MultipartFile file) throws IOException {
 

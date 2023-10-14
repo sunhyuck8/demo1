@@ -4,10 +4,13 @@ import com.bhome.demo.dto.AppleMapperDTO;
 import com.bhome.demo.dto.BoardDto;
 import com.bhome.demo.dto.BoardNDto;
 import com.bhome.demo.service.BoardService;
+import com.bhome.demo.service.PostService;
 import com.bhome.demo.service.ServiceTest;
+import com.bhome.demo.util.Paging;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +25,8 @@ import java.util.List;
 public class HomeController {
 
     //    private final ServiceTest serviceTest;
-    private final BoardService boardService;
-
+    private final PostService postService;
+    private final Paging paging;
 
 
 
@@ -31,20 +34,19 @@ public class HomeController {
     //페이지의 main   index.html
     @GetMapping("/")
     public String test(HttpServletRequest request){
-//        HttpSession session = request.getSession();//이부분은 세션에 관련해서 header를 변화 시키기 위해 임시로 넣은 값
-//        session.setAttribute("loginFlag", false);
 
-//        AppleMapperDTO apple = serviceTest.selectApple();
-//        BoardNDto board = boardService.boardDetail(2);
-//        System.out.println(board);
 
         return "index/index";
     }
     //community 페이지  사진을 위주로 올리는 게시판
     @GetMapping("/community")
     public String idx_community(HttpServletRequest request){
-//        HttpSession session = request.getSession();
-//        session.setAttribute("loginFlag", true);
+
+
+
+
+
+
         return "community/index_community";
     }
     //cs 고객센터 불편한 내용들을 컨펌받는 게시판
@@ -67,9 +69,11 @@ public class HomeController {
         return "myinfo/index_myinfo";
     }
     @GetMapping("/test")
-    public String testForm(HttpServletRequest request){
-//        HttpSession session = request.getSession();//이부분은 세션에 관련해서 header를 변화 시키기 위해 임시로 넣은 값
-//        session.setAttribute("loginFlag", false);
+    public String testForm(HttpServletRequest request, Model model){
+        String as =  "<img class=\"img-fluid\" th:src=\"@{/templates/img/media-1.jpg}\" alt=\"\">";
+        model.addAttribute("escape", as);
+
+//<img class="img-fluid" th:src="@{/templates/img/media-1.jpg}">
         return "test";
     }
 

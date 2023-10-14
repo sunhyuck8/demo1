@@ -122,7 +122,7 @@ create table post(
     , post_createdAt timestamp default CURRENT_TIMESTAMP
     , constraint fk_userPk foreign key (users_pk) references users(users_pk)
 ) default character set utf8;
-
+insert into post (post_title, users_pk) values ('test_title', 29);
 --  추가) 외래키 삭제후 테이블 변경, 그리고 다시 외래키 추가
 #     DROP FOREIGN KEY fk_userPk;
 #

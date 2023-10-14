@@ -30,6 +30,12 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+	implementation 'org.apache.commons:commons-lang3:3.13.0'
+
+
+
+
 }
 tasks.withType(JavaCompile) {
 	options.compilerArgs << "-Xlint:unchecked"
