@@ -1,11 +1,16 @@
 package com.bhome.demo.service;
 
 import com.bhome.demo.dto.PostFormRegistDto;
+import com.bhome.demo.dto.Post_files;
 import com.bhome.demo.mapper.PostMapper;
 import com.bhome.demo.util.FileManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,13 +29,26 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public int registPost(PostFormRegistDto postFormRegistDto) {
-        int post_pk = postMapper.registPost(postFormRegistDto);
+    public int registPost(PostFormRegistDto postFormRegistDto) throws IOException {
         //글 내용저장
-
+        postMapper.registPost(postFormRegistDto);
+        int post_pk = postFormRegistDto.getPost_pk();
+        log.info("service단 post_pk = {}",postFormRegistDto.getPost_pk());
         //postFormRegistDto에서 multipartList 저장하기
-
-
+        List list_file_inputDB = new ArrayList();
+        List post_files = postFormRegistDto.getPost_files();
+        if(post_files.size()==0){
+            Post_files postFiles = new Post_files("", "noimg.png", 0, post_pk);
+            list_file_inputDB.add(postFiles);
+        }else{
+            for(Object post_file : post_files){
+                MultipartFile file = (MultipartFile) post_file;
+                String reFileName = fileManager.saveFileAndReturnFileName(file);
+                Post_files postFiles = new Post_files(file.getOriginalFilename(), reFileName, file.getSize(), post_pk);
+                list_file_inputDB.add(postFiles);
+            }
+        }
+        postMapper.registPostFiles(list_file_inputDB);
         return post_pk;
     }
 

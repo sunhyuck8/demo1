@@ -9,12 +9,18 @@ import com.bhome.demo.service.ServiceTest;
 import com.bhome.demo.util.Paging;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -77,4 +83,17 @@ public class HomeController {
         return "test";
     }
 
+    @GetMapping("/Crawling")
+    @ResponseBody
+    public String testCrawling(HttpServletRequest request) throws IOException {
+        String url = "https://smartstore.naver.com/health365/products/4730685086?n_media=11068&n_query=%EC%87%BC%ED%8C%8C&n_rank=1&n_ad_group=grp-a001-02-000000024850701&n_ad=nad-a001-02-000000164271318&n_campaign_type=2&n_mall_id=hymedi&n_mall_pid=4730685086&n_ad_group_type=2&n_match=3&NaPm=ct%3Dlnqkxun4%7Cci%3D0z00000q3MHzFhUIlvnU%7Ctr%3Dpla%7Chk%3Db47fab3d3087438a30a3079e2e8bdf23baaf4ea3";
+        Document doc = Jsoup.connect(url).get();
+        String text ="";
+        Elements eles = doc.select(".TsOLil1PRz");
+        for(Element ele : eles){
+            text += ele.text();
+        }
+
+        return text;
+    }
 }

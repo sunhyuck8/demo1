@@ -32,6 +32,8 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok'
 	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
 	implementation 'org.apache.commons:commons-lang3:3.13.0'
+	// jsoup HTML parser library @ https://jsoup.org/
+	implementation 'org.jsoup:jsoup:1.16.1'
 
 
 

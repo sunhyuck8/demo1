@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 @Slf4j
 @Component
@@ -38,14 +39,17 @@ public class FileManager {
     }
 
     //파일들 저장하기
-    public void saveFills(List<MultipartFile> files) throws IOException {
+    public List saveFilesAndReturnFileNameList(List<MultipartFile> files) throws IOException {
         int index = 0;
+        List list_FileNames = new ArrayList();
         for(MultipartFile file : files){
-            String fileName = System.currentTimeMillis()+"."+getExt(file.getOriginalFilename()+index);
+            String fileName = System.currentTimeMillis()+index+"."+getExt(file.getOriginalFilename());
             Path path = Paths.get(staticFileDir, fileName);
             file.transferTo(path.toFile());
+            list_FileNames.add(fileName);
             index++;
         }
+        return list_FileNames;
     }
 
 
@@ -59,12 +63,7 @@ public class FileManager {
         file.transferTo(path.toFile());
         return fileName;
     }
-    //파일 list 저장하기
-    public void saveFiles (List<MultipartFile> files) throws IOException {
 
-
-
-    }
 ////
 //    //파일 삭제하기
 //    public void deleteFile(ServletContext context, String fileName) throws FileHandlerException{

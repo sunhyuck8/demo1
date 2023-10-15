@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Post_files {
-    private int post_filesPk;
     private String post_files_oriName;
     private String post_files_reName;
-    private int post_files_size;
+    private long post_files_size;
     private int post_pk;
 }

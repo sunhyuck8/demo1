@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -43,7 +44,7 @@ public class PostController {
         return "/post/test_post_registForm";
     }
     @PostMapping("/{boardType}/regist")
-    public String registPost(@PathVariable("boardType")String boardType, HttpServletRequest request, PostFormRegistDto postFormRegistDto,Model model){
+    public String registPost(@PathVariable("boardType")String boardType, HttpServletRequest request, PostFormRegistDto postFormRegistDto,Model model) throws IOException {
         log.info("postFormRegsotDto ={}",postFormRegistDto);
         int post_pk = postService.registPost(postFormRegistDto);
         log.info("post pk  = {}",post_pk);

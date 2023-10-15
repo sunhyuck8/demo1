@@ -18,6 +18,7 @@
         <typeAlias type="com.bhome.demo.dto.PostRegistDto" alias="PostRegistDto"/>
         <typeAlias type="com.bhome.demo.dto.PostFormRegistDto" alias="PostFormRegistDto"/>
         <typeAlias type="com.bhome.demo.dto.PostCategoryDto" alias="PostCategoryDto"/>
+        <typeAlias type="com.bhome.demo.dto.Post_files" alias="PostFiles"/>
 <!--    Vo    -->
         <typeAlias type="com.bhome.demo.vo.UserVo" alias="UserVo"/>
     </typeAliases>

@@ -15,7 +15,7 @@
                   )
     </select>
 
-    <insert id="registPost" parameterType="PostFormRegistDto" useGeneratedKeys="true" keyProperty="post_pk">
+    <insert id="registPost" parameterType="PostFormRegistDto"  useGeneratedKeys="true" keyProperty="post_pk">
         INSERT INTO post(
             post_title,
             post_content,
@@ -30,5 +30,23 @@
               )
     </insert>
 
+    <insert id="registPostFiles" parameterType="java.util.List">
+        INSERT INTO post_files(
+            post_files_oriName,
+            post_files_reName,
+            post_files_size,
+            post_pk
+        )
+        VALUES
+        <foreach collection="list" item="PostFiles" separator=",">
+            (
+            #{PostFiles.post_files_oriName},
+            #{PostFiles.post_files_reName},
+            #{PostFiles.post_files_size},
+            #{PostFiles.post_pk}
+            )
+        </foreach>
+
+    </insert>
 
 </mapper>

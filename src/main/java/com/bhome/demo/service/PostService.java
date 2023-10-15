@@ -2,12 +2,13 @@ package com.bhome.demo.service;
 
 import com.bhome.demo.dto.PostFormRegistDto;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface PostService {
     public List getSubList(String categoryName); //소카테고리 리스트 보여주기
 
-    public int registPost(PostFormRegistDto postFormRegistDto);//post 저장하기
+    public int registPost(PostFormRegistDto postFormRegistDto) throws IOException;//post 저장하기
 
     public List selectAllPost();//postList보여주기
 
