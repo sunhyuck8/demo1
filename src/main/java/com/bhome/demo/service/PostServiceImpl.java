@@ -1,9 +1,12 @@
 package com.bhome.demo.service;
 
+import com.bhome.demo.dto.PostDetailDtoo;
+import com.bhome.demo.dto.PostDetailtDto;
 import com.bhome.demo.dto.PostFormRegistDto;
 import com.bhome.demo.dto.Post_files;
 import com.bhome.demo.mapper.PostMapper;
 import com.bhome.demo.util.FileManager;
+import com.bhome.demo.vo.PostDetailVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +20,7 @@ import java.util.List;
 @Slf4j
 public class PostServiceImpl implements PostService{
     private PostMapper postMapper;
+
     private FileManager fileManager;
     public PostServiceImpl(PostMapper postMapper, FileManager fileManager) {
         this.postMapper = postMapper;
@@ -50,6 +54,29 @@ public class PostServiceImpl implements PostService{
         }
         postMapper.registPostFiles(list_file_inputDB);
         return post_pk;
+
+
+    }
+
+
+    @Override
+    public PostDetailVo showDetailPost(int post_pk) {
+        PostDetailDtoo postDetailDto = new PostDetailDtoo();
+        postDetailDto = postMapper.showDetailPost(post_pk);
+        log.info("serviceImple {}", postDetailDto);
+        PostDetailVo postDetailVo = new PostDetailVo(
+                postDetailDto.getPost_pk(),
+                postDetailDto.getPost_title(),
+                postDetailDto.getPost_content(),
+                postDetailDto.getPost_category_name(),
+                postDetailDto.getPost_subcategory_name(),
+                postDetailDto.getUser_name(),
+                postDetailDto.getUsers_pk(),
+                postDetailDto.getPost_createdAt(),
+                postDetailDto.getPost_files()
+        );
+
+        return postDetailVo;
     }
 
     @Override
@@ -86,4 +113,6 @@ public class PostServiceImpl implements PostService{
     public int postViewCnt(int post_pk) {
         return 0;
     }
+
+
 }

@@ -3,7 +3,6 @@ package com.bhome.demo.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,8 +10,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostDetailtDto {
-    // ----
+public class PostDetailDtoo {
+
     private int post_pk;
     private String post_title;
     private String post_content;

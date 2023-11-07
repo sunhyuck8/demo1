@@ -14,7 +14,7 @@
             WHERE post_category_name =#{post_category_name}
                   )
     </select>
-
+    <!--게시글등록-->
     <insert id="registPost" parameterType="PostFormRegistDto"  useGeneratedKeys="true" keyProperty="post_pk">
         INSERT INTO post(
             post_title,
@@ -29,7 +29,7 @@
                   #{users_pk}
               )
     </insert>
-
+    <!--게시글등록 사진-->
     <insert id="registPostFiles" parameterType="java.util.List">
         INSERT INTO post_files(
             post_files_oriName,
@@ -46,7 +46,82 @@
             #{PostFiles.post_pk}
             )
         </foreach>
-
     </insert>
+
+    <!--게시글상세-->
+<!--    <resultMap id="postDetailDto" type="PostDetailDto">-->
+<!--        <id property="post_pk" column="post_pk"/>-->
+<!--        <result property="post_title" column="post_title"/>-->
+<!--        <result property="post_content" column="post_content"/>-->
+<!--        <result property="users_pk" column="users_pk"/>-->
+<!--        <result property="post_writer" column="user_name"/>-->
+<!--        <result property="post_category_name" column="post_category_name"/>-->
+<!--        <result property="post_subcategory_name" column="post_subcategory_name"/>-->
+<!--        <result property="post_createdAt" column="post_createdAt"/>-->
+<!--        <collection property="post_files" >-->
+<!--            <result property="post_files_oriName" column="post_files_oriName" />-->
+<!--            <result property="post_files_reName" column="post_files_reName" />-->
+<!--            <result property="post_files_size" column="post_files_size" />-->
+<!--            <result property="post_pk" column="post_pk" />-->
+<!--        </collection>-->
+<!--    </resultMap>-->
+
+<!--    <select id="showDetailPost" parameterType="int" resultMap="postDetailDto">-->
+<!--        SELECT-->
+<!--            p.post_pk,-->
+<!--            p.post_title,-->
+<!--            p.post_content,-->
+<!--            p.users_pk,-->
+<!--            u.user_name,-->
+<!--            p.post_createdAt,-->
+<!--            c.post_category_name,-->
+<!--            pc.post_category_name AS post_parentcategory_name-->
+<!--        FROM post AS p-->
+<!--                 JOIN users AS u ON p.users_pk = u.users_pk-->
+<!--                 JOIN post_category AS c ON p.post_category_id = c.post_category_id-->
+<!--                 LEFT JOIN post_category AS pc ON c.parent_category_id = pc.post_category_id-->
+<!--        WHERE p.post_pk = #{post_pk}-->
+<!--    </select>-->
+    <resultMap id="postDetailResultMap" type="PostDetailDtoo">
+        <id property="post_pk" column="post_pk"/>
+        <result property="post_title" column="post_title"/>
+        <result property="post_content" column="post_content"/>
+        <result property="users_pk" column="users_pk"/>
+        <result property="user_name" column="user_name"/>
+        <result property="post_category_name" column="post_category_name"/>
+        <result property="post_subcategory_name" column="post_subcategory_name"/>
+        <result property="post_createdAt" column="post_createdAt"/>
+
+
+        <collection property="post_files" ofType="PostFiles" javaType="java.util.List">
+            <result property="post_files_oriName" column="post_files_oriName" />
+            <result property="post_files_reName" column="post_files_reName" />
+            <result property="post_files_size" column="post_files_size" />
+            <result property="post_pk" column="post_pk" />
+        </collection>
+    </resultMap>
+
+
+
+
+    <select id="showDetailPost" parameterType="int" resultMap="postDetailResultMap">
+        SELECT
+            p.post_pk,
+            p.post_title,
+            p.post_content,
+            p.users_pk,
+            u.user_name,
+            p.post_createdAt,
+            c.post_category_name AS post_subcategory_name,
+            pc.post_category_name AS post_category_name
+        FROM post AS p
+                 JOIN users AS u ON p.users_pk = u.users_pk
+                 JOIN post_category AS c ON p.post_category_id = c.post_category_id
+                 LEFT JOIN post_category AS pc ON c.parent_category_id = pc.post_category_id
+        WHERE p.post_pk = #{post_pk}
+    </select>
+
+
+
 
 </mapper>

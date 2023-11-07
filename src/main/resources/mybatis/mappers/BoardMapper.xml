@@ -102,7 +102,6 @@
                #{user_pk}
                )
     </insert>
-
     <insert id="boardRegistFiles" parameterType="java.util.List" >
         <selectKey keyProperty="board_pk" resultType="int" order="BEFORE">
             SELECT max(board_pk) from board

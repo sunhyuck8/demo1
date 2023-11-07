@@ -22,9 +22,10 @@
                     </select>
 
                     <h4>카테고리</h4>
-                    <select id="selectBox" th:field="*{post_category_name}">
+                    <select id="selectBox" th:field="*{post_category_id}">
                         <option value="">선택</option>
-                        <option th:each="subList : ${subCategoryList}" th:value="${subList}" th:text="${subList}" ></option>
+                        <option th:each="subList : ${subCategoryList}" th:value="${subList.post_category_id}" th:text="${subList.post_category_name}" ></option>
+                        <!--th:value="${subList}"-->
                     </select>
 
                     <!--기능 추가 예정-->

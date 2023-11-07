@@ -1,6 +1,7 @@
 package com.bhome.demo.service;
 
 import com.bhome.demo.dto.PostFormRegistDto;
+import com.bhome.demo.vo.PostDetailVo;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,4 +24,6 @@ public interface PostService {
     public void deletePost(int post_pk);//post 삭제하기
 
     public int postViewCnt(int post_pk);//post 조회수
+
+    public PostDetailVo showDetailPost(int post_pk);
 }
